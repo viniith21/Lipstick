@@ -1,0 +1,127 @@
+{
+    "base_url": "https://easiofy.com/LipstickTryOn/?color=",
+    "Cosmetics": [{
+        "type": "Lipstick",
+        "type_display": "Lipstick",
+        "shades": [{
+            "name": "SpicyRed",
+            "color": "#d12f58"
+          },
+          {
+            "name": "MerlotMagic",
+            "color": "#942f57"
+          },
+          {
+            "name": "QueenRed",
+            "color": "#540000"
+          },
+          {
+            "name": "RiskRed",
+            "color": "#ae00ae"
+          },
+          {
+            "name": "ScarletKiss",
+            "color": "#5a2e3f"
+          }
+        ]
+      },
+      {
+        "type": "Eyeliner",
+        "type_display": "Eyeliner",
+        "shades": [{
+            "name": "black",
+            "color": "#000000"
+          },
+          {
+            "name": "WoodyFlush",
+            "color": "#004e30"
+          },
+          {
+            "name": "AppleOrchard",
+            "color": "#0e1d7a"
+          },
+          {
+            "name": "AppleOrchard",
+            "color": "#2a0000"
+          },
+          {
+            "name": "AppleOrchard",
+            "color": "#520000"
+          }
+        ]
+      },
+      {
+        "type": "Kajal",
+        "type_display": "Kajal",
+        "shades": [{
+            "name": "black",
+            "color": "#000000"
+          },
+          {
+            "name": "WoodyFlush",
+            "color": "#004e30"
+          },
+          {
+            "name": "AppleOrchard",
+            "color": "#0e1d7a"
+          },
+          {
+            "name": "AppleOrchard",
+            "color": "#2a0000"
+          },
+          {
+            "name": "AppleOrchard",
+            "color": "#520000"
+          }
+        ]
+      },
+      {
+        "type": "EyeShade",
+        "type_display": "EyeShade",
+        "shades": [{
+            "name": "TulipPink",
+            "color": "#0000FF"
+          },
+          {
+            "name": "WoodyFlush",
+            "color": "#76777b"
+          },
+          {
+            "name": "AppleOrchard",
+            "color": "#e76798"
+          },
+          {
+            "name": "AppleOrchard",
+            "color": "#60a862"
+          },
+          {
+            "name": "AppleOrchard",
+            "color": "#FF0000"
+          }
+        ]
+      },
+      
+      {
+        "type": "Eyebrows",
+        "type_display": "Eyebrows",
+        "shades": [
+          {
+            "name": "Blue",
+            "color": "#000044"
+          },{
+            "name": "black",
+            "color": "#000000"
+          },
+          {
+            "name": "Brown",
+            "color": "#1B0000"
+          },
+          {
+            "name": "Red",
+            "color": "#FF0000"
+          }
+        ]
+      }
+      
+    ]
+  }

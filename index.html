@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>StackBlur.js Demo</title>
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        background: rgb(240, 71, 99);
+        font-family: Arial, sans-serif;
+        color: #ab7373;
+        background-image: url("asset/background11.jpeg");
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .container {
+        width: 450px;
+        height: 500px;
+        background-color: #bdaaca;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      iframe {
+        height: 400px;
+        width: 300px;
+      }
+
+      h1 {
+        position: relative;
+        z-index: 10;
+        top: 10px; /* Adjust this value as needed to position the heading */
+        font-size: 32px;
+      }
+      #mybutton {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: calc(50% + 250px);
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #ff0000;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      #mybutton:hover {
+        background-color: #cc0000;
+        color: #fff; /* Change text color on hover */
+      }
+    </style>
+  </head>
+  <body>
+    <h1
+      style="
+        font-size: 32px;
+        color: #9b4444;
+        text-shadow: 2px 2px 0 #fff, 4px 4px 0 #bbb;
+        transform: skew(-10deg);
+      "
+    >
+      IMAGE FILTER DEMO
+    </h1>
+
+    <div class="container">
+      <iframe
+        id="myframe"
+        scrolling="no"
+        src="Lipstick/"
+        allow="camera;microphone"
+      ></iframe>
+    </div>
+
+    <button id="mybutton">Red Color</button>
+
+    <script>
+      document.getElementById("mybutton").addEventListener("click", () => {
+        document.getElementById("myframe").contentWindow.postMessage(
+          {
+            product_type: "Lipstick",
+            color_code: "#ff0000",
+          },
+          "*"
+        );
+      });
+    </script>
+  </body>
+</html>

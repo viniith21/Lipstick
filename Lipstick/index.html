@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter@3.7.0/dist/tf-converter.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
+
+    <!-- Alternatively you can use the WASM backend:-->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm/dist/tf-backend-wasm.js"></script>
+    <script src="https://unpkg.com/@tensorflow-models/face-landmarks-detection@0.0.3/dist/face-landmarks-detection.min.js"></script>
+    <script src="image_filter.js"></script>
+
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        color: #333;
+      }
+
+      .container {
+        background: #e75985;
+      }
+
+      .center {
+        margin: auto;
+      }
+
+      @media only screen and (max-width: 600px) {
+        .center {
+          width: 100%;
+        }
+        .loader {
+          display: absolute;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 50%;
+          border: 5px solid #444444;
+          border-radius: 50%;
+          border-top: 5px solid #3498db;
+          width: 40px;
+          height: 40px;
+          -webkit-animation: spin 1s linear infinite; /* Safari */
+          animation: spin 1s linear infinite;
+          z-index: 2;
+        }
+      }
+
+      /* Safari */
+      @-webkit-keyframes spin {
+        0% {
+          -webkit-transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="center">
+        <img src="women.jpeg" id="image" style="display: none" />
+        <button
+          id="tryon"
+          type="button"
+          style="
+            font-size: 14px;
+            width: 80px;
+            height: 40px;
+            position: fixed;
+            top: 60px;
+            box-sizing: border-box;
+            background-color: #4095c6;
+            border-radius: 2em;
+            text-align: center;
+          "
+        >
+          Try-On
+        </button>
+      </div>
+      <div id="div_canvas" class="center">
+        <canvas
+          id="output"
+          width="300px"
+          height="400px"
+          style="background-color: black"
+        ></canvas>
+        <div class="loader"></div>
+      </div>
+      <div class="center">
+        <canvas
+          width="300px"
+          height="400px"
+          id="tempCanvas"
+          style="display: none"
+        ></canvas>
+      </div>
+      <div class="center">
+        <canvas
+          width="300px"
+          height="400px"
+          id="hiddenCanvas"
+          style="display: none"
+        ></canvas>
+      </div>
+      <div class="center">
+        <canvas
+          width="300px"
+          height="400px"
+          id="hiddenCanvas1"
+          style="display: none"
+        ></canvas>
+      </div>
+      <video
+        autoplay
+        muted
+        playsinline
+        webkit-playsinline
+        id="videoElement"
+        style="
+          height: auto;
+          width: auto;
+          -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+          z-index: -1000;
+          display: none;
+        "
+      ></video>
+    </div>
+
+    <script type="text/javascript" src="index.js"></script>
+  </body>
+</html>
