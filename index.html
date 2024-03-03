@@ -20,15 +20,13 @@
 
       .container {
         width: 450px;
-        height: 500px;
         background-color: #bdaaca;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        position: relative;
+        margin: 0 auto;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
+        padding: 20px;
       }
 
       iframe {
@@ -37,43 +35,73 @@
       }
 
       h1 {
-        position: relative;
-        z-index: 10;
-        top: 10px; /* Adjust this value as needed to position the heading */
-        font-size: 32px;
-      }
-      #mybutton {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        top: calc(50% + 250px);
-        margin-top: 20px;
-        padding: 10px 20px;
-        background-color: #ff0000;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease, color 0.3s ease;
-      }
-
-      #mybutton:hover {
-        background-color: #cc0000;
-        color: #fff; /* Change text color on hover */
-      }
-    </style>
-  </head>
-  <body>
-    <h1
-      style="
         font-size: 32px;
         color: #9b4444;
         text-shadow: 2px 2px 0 #fff, 4px 4px 0 #bbb;
         transform: skew(-10deg);
-      "
-    >
-      IMAGE FILTER DEMO
-    </h1>
+        margin-bottom: 20px;
+      }
+
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .tab {
+        padding: 10px 20px;
+        background-color: #fff;
+        color: #555;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .tab:hover,
+      .tab.active {
+        background-color: #ff0000;
+        color: white;
+        border-color: #ff0000;
+      }
+
+      .selection {
+        text-align: center;
+        padding: 20px;
+      }
+
+      .tab-shadeTab {
+        width: 45px;
+        border-radius: 50%;
+        height: 45px;
+        position: relative;
+      }
+
+      .tab-shadeTab.active-shade::after {
+        content: "✔";
+        color: white;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        font-size: 20px;
+      }
+
+      @media screen and (max-width: 420px) {
+        .container {
+          width: calc(100% - 1rem);
+        }
+
+        .tabs {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="title">IMAGE FILTER DEMO</h1>
 
     <div class="container">
       <iframe
@@ -84,18 +112,56 @@
       ></iframe>
     </div>
 
-    <button id="mybutton">Red Color</button>
+    <div class="tabs" id="cosmeticTabs"></div>
+    <div class="tabs" id="shadeTabs" style="display: none"></div>
 
     <script>
-      document.getElementById("mybutton").addEventListener("click", () => {
-        document.getElementById("myframe").contentWindow.postMessage(
-          {
-            product_type: "Lipstick",
-            color_code: "#ff0000",
-          },
-          "*"
-        );
-      });
+      let data;
+
+      fetch("./json/cosmetic.json")
+        .then((response) => response.json())
+        .then((loadedData) => {
+          data = loadedData;
+          const cosmeticTypes = data.Cosmetics || [];
+          const tabsElement = document.getElementById("cosmeticTabs");
+
+          cosmeticTypes.forEach((cosmetic) => {
+            const tabButton = document.createElement("button");
+            tabButton.className = "tab";
+            tabButton.textContent = cosmetic.type_display;
+            tabButton.onclick = () => handleCosmeticTabClick(cosmetic);
+            tabsElement.appendChild(tabButton);
+          });
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+
+      function handleCosmeticTabClick(cosmetic) {
+        const shadeTabsElement = document.getElementById("shadeTabs");
+        shadeTabsElement.innerHTML = "";
+        shadeTabsElement.style.display = "flex";
+
+        cosmetic.shades.forEach((shade) => {
+          const tabButton = document.createElement("button");
+          tabButton.className = "tab-shadeTab";
+          tabButton.style.backgroundColor = shade.color;
+          // Pass this tabButton as an argument to applyShade
+          tabButton.onclick = () => {
+            applyShade(shade.color);
+            tabButton.classList.add("active-shade"); // Add active class here
+          };
+          shadeTabsElement.appendChild(tabButton);
+        });
+      }
+
+      function applyShade(colorCode) {
+        const iframeSrc = `${data.base_url}${colorCode}`;
+        document.getElementById("myframe").src = iframeSrc;
+
+        // Find all shade tabs and remove the active class
+        document.querySelectorAll(".tab-shadeTab").forEach((tab) => {
+          tab.classList.remove("active-shade");
+        });
+      }
     </script>
   </body>
 </html>
