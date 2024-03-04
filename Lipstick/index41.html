@@ -30,6 +30,16 @@
         margin: auto;
       }
 
+      #image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+
       @media only screen and (max-width: 600px) {
         .center {
           width: 100%;
@@ -73,7 +83,8 @@
   <body>
     <div class="container">
       <div class="center">
-        <img src="women.jpeg" id="image" style="display: none" />
+        <!-- <img src="../Lipstick/women.jpeg" id="image" /> -->
+        <img src="../asset/photo.jpeg" id="image" />
         <button
           id="tryon"
           type="button"
@@ -82,7 +93,8 @@
             width: 80px;
             height: 40px;
             position: fixed;
-            top: 60px;
+            top: 0px;
+            right: 111px;
             box-sizing: border-box;
             background-color: #4095c6;
             border-radius: 2em;
@@ -141,7 +153,6 @@
         "
       ></video>
     </div>
-
-    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="indexnew.js"></script>
   </body>
 </html>
