@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>StackBlur.js Demo</title>
+        <style>
+            html, body {
+                padding: 0;
+                margin: 0;
+                text-align: center;
+                background: #fff;
+                font-family: Arial, sans-serif;
+                color: #333;
+            }
+
+           
+            h1 { margin-top:150px;}
+           
+        </style>
+    </head>
+    <body>
+  
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+
+  
+</script>
+
+        <h1>Image Filters Demo</h1>
+              <div class="viewport">
+              <iframe  id="myframe" scrolling="no" src = "Lipstick/" allow="camera;microphone" width ="300" height="400">
+              </iframe>
+            </div>
+            <button id="mybutton">Red Color</button>
+
+        
+        <script>
+
+          document.getElementById("mybutton").addEventListener("click", (e)=> {
+
+      //  document.getElementById('myframe').contentWindow.update("Lipstick","#ff0000");
+       document.getElementById('myframe').contentWindow.postMessage(
+       {
+        product_type:"Lipstick",
+        color_code:"#ff0000",
+       },
+    "*");
+
+          })
+           
+        </script>
+    </body>
+</html>

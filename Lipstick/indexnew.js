@@ -112,69 +112,30 @@ let model,
 
 let stream;
 
-function getURLParameters() {
-  let params = {};
+var globalProduct = null;
+var globalColorCode = null;
 
-  const queryString = window.location.search;
-
-  const urlParams = new URLSearchParams(queryString);
-
-  for (const [key, value] of urlParams.entries()) {
-    params[key] = value;
-  }
-  return params;
-}
-
-const params = getURLParameters();
-console.log(params);
-
-console.log(params.param1, "This is color");
-
-console.log(params.param2, "This is product");
-
-// const params = new URLSearchParams(window.location.search);
-// const colorCode = params.get("colorCode");
-// const product = params.get("product");
-
-// if (window.addEventListener) {
-//   window.addEventListener("message", handleMessage);
-// } else {
-//   window.attachEvent("onmessage", handleMessage);
-// }
+window.addEventListener(
+  "message",
+  (event) => {
+    console.log("Received message:", event.data);
+    if (event.data.type === "updateProductAndColor") {
+      globalProduct = event.data.product;
+      globalColorCode = event.data.colorCode;
+      console.log("Product and color set:", globalProduct, globalColorCode);
+      handleMessage();
+    }
+  },
+  false
+);
 
 function handleMessage() {
   console.log("Received a message from " + ".");
 
-  const colorCode = params.param1;
-  const product = params.param2;
+  const colorCode = globalColorCode;
+  const product = globalProduct;
 
-  //console.log(dataFromChildIframe);
-
-  //   var product = dataFromChildIframe.product_type;
-  //   var colorCode = dataFromChildIframe.color_code;
-
-  //   switch (product) {
-  //     case "Lipstick":
-  //       Lipstick = 1;
-  //       LipstickShade = colorCode;
-  //       break;
-  //     case "Kajal":
-  //       Kajal = 1;
-  //       KajalShade = colorCode;
-  //       break;
-  //     case "EyeShade":
-  //       EyeShade = 1;
-  //       EyeShadeShade = colorCode;
-  //       break;
-  //     case "blush":
-  //       Blush = 1;
-  //       BlushShade = colorCode;
-  //       break;
-  //     case "Eyeliner":
-  //       Eyeliner = 1;
-  //       EyelinerShade = colorCode;
-  //       break;
-  //   }
+  console.log("inside the handle message " + colorCode + product);
 
   if (product == "Lipstick") {
     console.log("In the if else");

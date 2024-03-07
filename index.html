@@ -1,23 +1,228 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Main Page</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>StackBlur.js Demo</title>
+    <style>
+      html,
+      body {
+        overflow-x: hidden;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+
+        font-family: Arial, sans-serif;
+        color: #ab7373;
+        background-image: url("asset/background11.jpeg");
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .container {
+        width: 450px;
+        background-color: #bdaaca;
+        position: relative;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+      }
+
+      iframe {
+        height: 400px;
+        width: 300px;
+      }
+
+      h1 {
+        font-size: 32px;
+        color: #9b4444;
+        text-shadow: 2px 2px 0 #fff, 4px 4px 0 #bbb;
+        transform: skew(-10deg);
+        margin-bottom: 20px;
+      }
+
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .tab {
+        padding: 10px 20px;
+        background-color: #f8dfd4;
+        color: #555;
+        border: 1px solid transparent; /* Change from #ccc to transparent to remove non-active border color */
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        font-size: 18px; /* Increased font size */
+        font-weight: bold; /* Make the text bold */
+      }
+
+      .tab:hover,
+      .tab.active {
+        color: black;
+        border-color: #ff0000;
+      }
+
+      .selection {
+        text-align: center;
+        padding: 20px;
+      }
+
+      .tab-shadeTab {
+        width: 45px;
+        border-radius: 50%;
+        height: 45px;
+        position: relative;
+        border: 2px solid transparent;
+      }
+
+      .tab-shadeTab.active-shade {
+        border: 4px solid white; /* Keep the active tab border as white */
+      }
+
+      .tab-shadeTab.active-shade::after {
+        border: 1 px solid;
+        color: white;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        font-size: 20px;
+      }
+
+      .tabs-container {
+        background-color: #e1afd1;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px auto;
+        width: 40%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .tab-shadeTab.active-shade {
+        border: 4px solid white;
+      }
+
+      @media screen and (max-width: 420px) {
+        .container {
+          width: calc(100% - 1rem);
+        }
+
+        .tabs {
+          flex-direction: inline-block;
+          align-items: center;
+        }
+      }
+    </style>
   </head>
   <body>
-    <button onclick="openIframe()">Open Iframe</button>
+    <h1 id="title">IMAGE FILTER DEMO</h1>
 
-    <iframe id="projectBIframe" width="600" height="400"></iframe>
+    <div class="container">
+      <button onclick="openIframe()">Open Iframe</button>
+
+      <iframe
+        id="projectBIframe"
+        width="600"
+        height="400"
+        scrolling="off"
+      ></iframe>
+    </div>
+    <br />
+    <div class="tabs-container">
+      <div class="tabs" id="cosmeticTabs"></div>
+      <div class="tabs" id="shadeTabs" style="display: none"></div>
+    </div>
 
     <script>
+      let data;
+      var product = "";
+      let colorCode;
+
+      fetch("./json/cosmetic.json")
+        .then((response) => response.json())
+        .then((loadedData) => {
+          data = loadedData;
+          const cosmeticTypes = data.Cosmetics || [];
+          const tabsElement = document.getElementById("cosmeticTabs");
+
+          cosmeticTypes.forEach((cosmetic) => {
+            const tabButton = document.createElement("button");
+            tabButton.className = "tab";
+            tabButton.textContent = cosmetic.type_display;
+            tabButton.onclick = () => handleCosmeticTabClick(cosmetic);
+            tabsElement.appendChild(tabButton);
+          });
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+
+      function handleCosmeticTabClick(cosmetic) {
+        product = cosmetic.type;
+        const shadeTabsElement = document.getElementById("shadeTabs");
+        shadeTabsElement.innerHTML = ""; // Clear existing tabs
+        shadeTabsElement.style.display = "flex"; // Make the container visible
+
+        cosmetic.shades.forEach((shade) => {
+          const tabButton = document.createElement("button");
+          tabButton.className = "tab-shadeTab";
+          tabButton.style.backgroundColor = shade.color;
+
+          tabButton.onclick = () => {
+            applyShade(shade.color);
+            // Ensure only the clicked tab has the active-shade class
+            document
+              .querySelectorAll(".tab-shadeTab")
+              .forEach((tab) => tab.classList.remove("active-shade"));
+            tabButton.classList.add("active-shade");
+            // Update the iframe right away when a shade is selected
+            updateIframe(product, shade.color);
+          };
+          shadeTabsElement.appendChild(tabButton);
+        });
+      }
+
+      function applyShade(selectedColorCode) {
+        colorCode = selectedColorCode;
+        // const iframeSrc = `${data.base_url}${colorCode}`;
+        // document.getElementById("myframe").src = iframeSrc;
+
+        // Find all shade tabs and remove the active class
+        document.querySelectorAll(".tab-shadeTab").forEach((tab) => {
+          tab.classList.remove("active-shade");
+          console.log(colorCode);
+          // update(product, colorCode);
+        });
+      }
+
       function openIframe() {
-        let value1 = encodeURIComponent("#942f57");
-        let value2 = "Lipstick";
+        console.log(colorCode, "openiframe");
+        let value1 = encodeURIComponent(colorCode);
+        let value2 = product;
 
         let iframeSrc = `./Lipstick/index41.html?param1=${value1}&param2=${value2}`;
 
         document.getElementById("projectBIframe").src = iframeSrc;
+        updateIframe(product, colorCode);
+      }
+
+      function updateIframe(product, colorCode) {
+        const message = {
+          type: "updateProductAndColor",
+          product: product,
+          colorCode: colorCode,
+        };
+
+        const iframe = document.getElementById("projectBIframe").contentWindow;
+        iframe.postMessage(message, "*");
       }
     </script>
   </body>
