@@ -137,22 +137,39 @@ function handleMessage() {
 
   console.log("inside the handle message " + colorCode + product);
 
-  if (product == "Lipstick") {
-    console.log("In the if else");
-    Lipstick = 1;
-    LipstickShade = colorCode;
-  } else if (product == "Kajal") {
-    Kajal = 1;
-    KajalShade = colorCode;
-  } else if (product == "EyeShade") {
-    EyeShade = 1;
-    EyeShadeShade = colorCode;
-  } else if (product == "blush") {
-    Blush = 1;
-    BlushShade = colorCode;
-  } else if (product == "Eyeliner") {
-    Eyeliner = 1;
-    EyelinerShade = colorCode;
+  // Define a function to toggle the product application
+  function toggleProductApplication(productName, productFlag, shade) {
+    if (window[productFlag] === 1 && window[shade] === colorCode) {
+      // If the product is already applied with the same shade, remove it
+      window[productFlag] = 0;
+      window[shade] = null; // Or however you want to denote an inactive shade
+      console.log(productName + " removed.");
+    } else {
+      // Apply the new shade and set the product as active
+      window[productFlag] = 1;
+      window[shade] = colorCode;
+      console.log(productName + " applied with color " + colorCode);
+    }
+  }
+
+  switch (product) {
+    case "Lipstick":
+      toggleProductApplication("Lipstick", "Lipstick", "LipstickShade");
+      break;
+    case "Kajal":
+      toggleProductApplication("Kajal", "Kajal", "KajalShade");
+      break;
+    case "EyeShade":
+      toggleProductApplication("EyeShade", "EyeShade", "EyeShadeShade");
+      break;
+    case "blush":
+      toggleProductApplication("Blush", "Blush", "BlushShade");
+      break;
+    case "Eyeliner":
+      toggleProductApplication("Eyeliner", "Eyeliner", "EyelinerShade");
+      break;
+    default:
+      console.log("Unknown product: " + product);
   }
 }
 

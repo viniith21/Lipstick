@@ -11,17 +11,17 @@
         padding: 0;
         margin: 0;
         text-align: center;
-
         font-family: Arial, sans-serif;
         color: #ab7373;
-        background-image: url("asset/background11.jpeg");
+        background-image: url("asset/image31.jpeg");
         background-repeat: no-repeat;
         background-size: cover;
       }
 
       .container {
         width: 450px;
-        background-color: #bdaaca;
+        background-color: #786c8b;
+        border: 6px solid #ccc;
         position: relative;
         margin: 0 auto;
         display: flex;
@@ -53,14 +53,14 @@
 
       .tab {
         padding: 5px 10px;
-        background-color: #f8dfd4;
+        background-color: #dff5ff;
         color: #555;
-        border: 1px solid transparent; /* Change from #ccc to transparent to remove non-active border color */
+        border: 1px solid transparent;
         border-radius: 5px;
         cursor: pointer;
         transition: background-color 0.3s, color 0.3s;
-        font-size: 18px; /* Increased font size */
-        font-weight: bold; /* Make the text bold */
+        font-size: 18px;
+        font-weight: bold;
       }
 
       .tab:hover,
@@ -75,29 +75,31 @@
       }
 
       .tab-shadeTab {
-        width: 35px; /* You can adjust this size if you want */
-        height: 35px; /* Make sure width and height are the same for a perfect square */
+        width: 35px;
+        height: 35px;
         position: relative;
         border: 2px solid transparent;
-        border-radius: 0; /* Changed from 50% to 0 to make it square */
+        border-radius: 0;
+        background-color: #ddd; /* Default background to make inactive state visible */
       }
 
       .tab-shadeTab.active-shade {
-        border: 2px solid white; /* Adjusted for active state */
+        border: 4px solid white;
       }
 
       .tab-shadeTab.active-shade::after {
-        content: ""; /* Make sure to define content for pseudo-elements */
-        display: block; /* This makes the pseudo-element behave more like a regular element */
+        content: "✔";
         position: absolute;
-        right: 5px;
-        top: 5px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
         font-size: 20px;
       }
 
       .tabs-container {
-        background-color: #e1afd1;
-        border: 2px solid #ccc;
+        background-color: #55c2da;
+        border: 4px solid #ccc;
         border-radius: 8px;
         padding: 15px;
         margin: 20px auto;
@@ -108,39 +110,33 @@
         gap: 10px;
       }
 
-      .tab-shadeTab.active-shade {
-        border: 4px solid white;
-      }
-
-      @media screen and (max-width: 420px) {
+      @media screen and (max-width: 720px) {
         .container {
           width: calc(100% - 1rem);
         }
 
         .tabs {
           display: grid;
-          grid-template-columns: repeat(3, 1fr); /* Creates three columns */
-          gap: 10px; /* Maintains spacing between grid items */
+          grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
         }
 
         .tabs + .tabs {
-          grid-template-columns: repeat(
-            2,
-            1fr
-          ); /* Adjusts for the second row if you have a separate container for it */
+          grid-template-columns: repeat(2, 1fr);
         }
         .tabs-container {
           width: 85%;
         }
+        iframe {
+          margin-right: 30px;
+        }
       }
     </style>
   </head>
-  <body>
+  <body onload="openIframe()">
     <h1 id="title">IMAGE FILTER DEMO</h1>
 
     <div class="container">
-      <button onclick="openIframe()">Open Iframe</button>
-
       <iframe
         id="projectBIframe"
         width="600"
@@ -158,6 +154,7 @@
       let data;
       var product = "";
       let colorCode;
+      let activeColors = {}; // Object to track active colors for each product type, ensuring persistence across product types
 
       fetch("./json/cosmetic.json")
         .then((response) => response.json())
@@ -179,48 +176,93 @@
       function handleCosmeticTabClick(cosmetic) {
         product = cosmetic.type;
         const shadeTabsElement = document.getElementById("shadeTabs");
-        shadeTabsElement.innerHTML = ""; // Clear existing tabs
-        shadeTabsElement.style.display = "flex"; // Make the container visible
+        shadeTabsElement.innerHTML = "";
+        shadeTabsElement.style.display = "flex";
 
         cosmetic.shades.forEach((shade) => {
           const tabButton = document.createElement("button");
           tabButton.className = "tab-shadeTab";
           tabButton.style.backgroundColor = shade.color;
 
-          tabButton.onclick = () => {
-            applyShade(shade.color);
-            // Ensure only the clicked tab has the active-shade class
-            document
-              .querySelectorAll(".tab-shadeTab")
-              .forEach((tab) => tab.classList.remove("active-shade"));
+          // Ensure active state is reflected for each tab based on activeColors tracking
+          if (
+            activeColors[product] &&
+            activeColors[product].includes(shade.color)
+          ) {
             tabButton.classList.add("active-shade");
-            // Update the iframe right away when a shade is selected
+          }
+
+          tabButton.onclick = () => {
+            const isActive = tabButton.classList.contains("active-shade");
+
+            if (isActive) {
+              // Remove active state for this color
+              tabButton.classList.remove("active-shade");
+              const index = activeColors[product].indexOf(shade.color);
+              if (index > -1) {
+                activeColors[product].splice(index, 1);
+              }
+              if (activeColors[product].length === 0) {
+                delete activeColors[product];
+              }
+            } else {
+              // Set active state for this color
+              if (!activeColors[product]) activeColors[product] = [];
+              if (!activeColors[product].includes(shade.color)) {
+                activeColors[product].push(shade.color);
+              }
+              tabButton.classList.add("active-shade");
+            }
+
+            applyShade(shade.color);
             updateIframe(product, shade.color);
           };
           shadeTabsElement.appendChild(tabButton);
         });
       }
 
+      function resetShades(container, currentTab, color, setActive) {
+        container.querySelectorAll(".tab-shadeTab").forEach((tab) => {
+          if (tab.style.backgroundColor === color) {
+            if (setActive) {
+              tab.classList.add("active-shade");
+            } else {
+              tab.classList.remove("active-shade");
+            }
+          }
+        });
+      }
+      // The rest of your code remains unchanged
+
       function applyShade(selectedColorCode) {
         colorCode = selectedColorCode;
-        // const iframeSrc = `${data.base_url}${colorCode}`;
-        // document.getElementById("myframe").src = iframeSrc;
+        const demoElement = document.getElementById("demoElement");
+        if (demoElement) {
+          demoElement.style.backgroundColor = colorCode;
+          console.log("Applied color code:", colorCode);
+        } else {
+          console.log("Element 'demoElement' not found.");
+        }
+      }
 
-        // Find all shade tabs and remove the active class
-        document.querySelectorAll(".tab-shadeTab").forEach((tab) => {
-          tab.classList.remove("active-shade");
-          console.log(colorCode);
-          // update(product, colorCode);
-        });
+      function removeShade(selectedColorCode, tabButton) {
+        if (colorCode === selectedColorCode) {
+          colorCode = null;
+          tabButton.classList.remove("active-shade");
+          const demoElement = document.getElementById("demoElement");
+          if (demoElement) {
+            demoElement.style.backgroundColor = ""; // Assuming a default or initial state is desired
+            console.log("Removed shade for color code:", selectedColorCode);
+          } else {
+            console.log("Element 'demoElement' not found.");
+          }
+        }
       }
 
       function openIframe() {
-        console.log(colorCode, "openiframe");
-        let value1 = encodeURIComponent(colorCode);
-        let value2 = product;
-
-        let iframeSrc = `./Lipstick/index41.html?param1=${value1}&param2=${value2}`;
-
+        let iframeSrc = `./Lipstick/index41.html?param1=${encodeURIComponent(
+          colorCode
+        )}&param2=${product}`;
         document.getElementById("projectBIframe").src = iframeSrc;
         updateIframe(product, colorCode);
       }
@@ -231,7 +273,6 @@
           product: product,
           colorCode: colorCode,
         };
-
         const iframe = document.getElementById("projectBIframe").contentWindow;
         iframe.postMessage(message, "*");
       }

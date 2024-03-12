@@ -6,6 +6,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter@3.7.0/dist/tf-converter.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
 
     <!-- Alternatively you can use the WASM backend:-->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm/dist/tf-backend-wasm.js"></script>
@@ -90,7 +94,7 @@
           type="button"
           style="
             font-size: 14px;
-            width: 80px;
+            width: 100px;
             height: 40px;
             position: fixed;
             top: 0px;
@@ -101,7 +105,9 @@
             text-align: center;
           "
         >
-          Try-On
+          TRY-ON &nbsp;
+          <!-- <i class="fa-duotone fa-camera-viewfinder"></i> -->
+          <i class="fas fa-camera"></i>
         </button>
       </div>
       <div id="div_canvas" class="center">
