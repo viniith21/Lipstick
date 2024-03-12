@@ -743,3 +743,310 @@
     </script>
   </body>
 </html>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>StackBlur.js Demo</title>
+    <style>
+      html,
+      body {
+        overflow-x: hidden;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        color: #ab7373;
+        background-image: url("asset/image31.jpeg");
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .container {
+        width: 450px;
+        background-color: #786c8b;
+        /* border: 6px solid #ccc; */
+        position: relative;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 22px;
+      }
+
+      iframe {
+        height: 400px;
+        width: 300px;
+      }
+
+      h1 {
+        font-size: 32px;
+        color: #9b4444;
+        text-shadow: 2px 2px 0 #fff, 4px 4px 0 #bbb;
+        transform: skew(-10deg);
+        margin-bottom: 20px;
+      }
+
+      .tabs {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .tab {
+        padding: 10px 20px;
+        background-color: #f5f5f5;
+        color: #555;
+        border: 1px solid #ccc;
+        border-bottom: none;
+        border-radius: 5px 5px 0 0;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        font-size: 16px;
+      }
+
+      .tab:hover,
+      .tab.active {
+        background-color: #fff;
+        border-color: #ccc;
+      }
+
+      .selection {
+        text-align: center;
+        padding: 20px;
+      }
+
+      .tab-shadeTab {
+        width: 35px;
+        height: 35px;
+        position: relative;
+        border: 2px solid transparent;
+        border-radius: 5px;
+        background-color: #55c2da;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .tab-shadeTab.active-shade {
+        border: 4px solid #fff;
+      }
+
+      .tab-shadeTab.active-shade::after {
+        content: "";
+      }
+
+      .tabs-container {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 50%;
+        margin: 0 auto;
+      }
+
+      .tabs-container .tab:last-child {
+        border-radius: 0 0 5px 5px;
+      }
+      .tab-shadeTab.active-shade::after {
+        content: "✔";
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        color: white;
+        font-size: 20px;
+      }
+
+      @media screen and (max-width: 720px) {
+        .container {
+          width: calc(100% - 1rem);
+        }
+
+        .tabs {
+          display: flex;
+          justify-content: center;
+          align-items: center; /* Center items vertically */
+          margin-bottom: 20px;
+          overflow-x: hidden; /* Hide horizontal scrollbar */
+        }
+
+        .tab {
+          flex: 1 1 auto; /* Allow tabs to grow and shrink as needed */
+          min-width: 50px; /* Set a minimum width for each tab */
+          box-sizing: border-box; /* Include padding and border in the element's total width */
+          padding: 0.5em; /* Adjust padding as needed */
+          text-align: center;
+        }
+
+        .tabs-container {
+          width: 100%; /* Adjust width to fit all content */
+          margin: 0 auto;
+        }
+
+        iframe {
+          margin-right: 30px;
+        }
+      }
+      @media screen and (min-width: 360px) {
+        .tab {
+          flex: 0 0 auto;
+          width: auto;
+          max-width: 100px;
+          box-sizing: border-box;
+          font-size: small;
+        }
+      }
+    </style>
+  </head>
+  <body onload="openIframe()">
+    <h1 id="title">IMAGE FILTER DEMO</h1>
+
+    <div class="container">
+      <iframe
+        id="projectBIframe"
+        width="600"
+        height="400"
+        scrolling="off"
+      ></iframe>
+    </div>
+    <br />
+    <div class="tabs-container">
+      <div class="tabs" id="cosmeticTabs"></div>
+      <div class="tabs" id="shadeTabs" style="display: none"></div>
+    </div>
+
+    <script>
+      let data;
+      var product = "";
+      let colorCode;
+      let activeColors = {};
+      fetch("./json/cosmetic.json")
+        .then((response) => response.json())
+        .then((loadedData) => {
+          data = loadedData;
+          const cosmeticTypes = data.Cosmetics || [];
+          const tabsElement = document.getElementById("cosmeticTabs");
+
+          cosmeticTypes.forEach((cosmetic) => {
+            const tabButton = document.createElement("button");
+            tabButton.className = "tab";
+            tabButton.textContent = cosmetic.type_display;
+            tabButton.onclick = () => handleCosmeticTabClick(cosmetic);
+            tabsElement.appendChild(tabButton);
+          });
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+
+      function handleCosmeticTabClick(cosmetic) {
+        product = cosmetic.type;
+        const shadeTabsElement = document.getElementById("shadeTabs");
+        shadeTabsElement.innerHTML = "";
+        shadeTabsElement.style.display = "flex";
+
+        cosmetic.shades.forEach((shade) => {
+          const tabButton = document.createElement("button");
+          tabButton.className = "tab-shadeTab";
+          tabButton.style.backgroundColor = shade.color;
+
+          if (
+            activeColors[product] &&
+            activeColors[product].includes(shade.color)
+          ) {
+            tabButton.classList.add("active-shade");
+          }
+
+          tabButton.onclick = () => {
+            const isActive = tabButton.classList.contains("active-shade");
+
+            if (isActive) {
+              // Deselect the shade if it's already active
+              tabButton.classList.remove("active-shade");
+              const index = activeColors[product].indexOf(shade.color);
+              if (index > -1) {
+                activeColors[product].splice(index, 1);
+              }
+              if (activeColors[product].length === 0) {
+                delete activeColors[product];
+              }
+            } else {
+              // Clear all active shades within the same tab
+              shadeTabsElement
+                .querySelectorAll(".tab-shadeTab.active-shade")
+                .forEach((tab) => {
+                  tab.classList.remove("active-shade");
+                });
+
+              // Activate the clicked shade
+              tabButton.classList.add("active-shade");
+              if (!activeColors[product]) activeColors[product] = [];
+              activeColors[product] = [shade.color]; // Set the active color for the product
+            }
+
+            applyShade(shade.color);
+            updateIframe(product, shade.color);
+          };
+          shadeTabsElement.appendChild(tabButton);
+        });
+      }
+
+      function resetShades(container, currentTab, color, setActive) {
+        container.querySelectorAll(".tab-shadeTab").forEach((tab) => {
+          if (tab.style.backgroundColor === color) {
+            if (setActive) {
+              tab.classList.add("active-shade");
+            } else {
+              tab.classList.remove("active-shade");
+            }
+          }
+        });
+      }
+
+      function applyShade(selectedColorCode) {
+        colorCode = selectedColorCode;
+        const demoElement = document.getElementById("demoElement");
+        if (demoElement) {
+          demoElement.style.backgroundColor = colorCode;
+          console.log("Applied color code:", colorCode);
+        } else {
+          console.log("Element 'demoElement' not found.");
+        }
+      }
+
+      function removeShade(selectedColorCode, tabButton) {
+        if (colorCode === selectedColorCode) {
+          colorCode = null;
+          tabButton.classList.remove("active-shade");
+          const demoElement = document.getElementById("demoElement");
+          if (demoElement) {
+            demoElement.style.backgroundColor = "";
+            console.log("Removed shade for color code:", selectedColorCode);
+          } else {
+            console.log("Element 'demoElement' not found.");
+          }
+        }
+      }
+
+      function openIframe() {
+        let iframeSrc = `./Lipstick/index41.html?param1=${encodeURIComponent(
+          colorCode
+        )}&param2=${product}`;
+        document.getElementById("projectBIframe").src = iframeSrc;
+        updateIframe(product, colorCode);
+      }
+
+      function updateIframe(product, colorCode) {
+        const message = {
+          type: "updateProductAndColor",
+          product: product,
+          colorCode: colorCode,
+        };
+        const iframe = document.getElementById("projectBIframe").contentWindow;
+        iframe.postMessage(message, "*");
+      }
+    </script>
+  </body>
+</html>

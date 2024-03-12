@@ -20,14 +20,15 @@
 
       .container {
         width: 450px;
-        background-color: #786c8b;
-        border: 6px solid #ccc;
+        /* background-color: #786c8b; */
+        background-color: #847995;
+        /* border: 6px solid #ccc; */
         position: relative;
         margin: 0 auto;
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 20px;
+        padding: 22px;
       }
 
       iframe {
@@ -45,28 +46,33 @@
 
       .tabs {
         display: flex;
-        flex-wrap: wrap;
         justify-content: center;
         gap: 10px;
         margin-bottom: 20px;
       }
 
       .tab {
-        padding: 5px 10px;
-        background-color: #dff5ff;
+        padding: 10px 20px;
+        background-color: #f5f5f5;
         color: #555;
-        border: 1px solid transparent;
-        border-radius: 5px;
+        border: 1px solid #ccc;
+        border-bottom: none;
+        border-radius: 0;
         cursor: pointer;
-        transition: background-color 0.3s, color 0.3s;
-        font-size: 18px;
-        font-weight: bold;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        font-size: 16px;
+        flex: 1 1 auto; /* Allow tabs to grow and shrink as needed */
+        min-width: 100px; /* Set a fixed width for each tab */
+        box-sizing: border-box; /* Include padding and border in the element's total width */
+        padding: 10px; /* Adjust padding as needed */
+        text-align: center;
       }
 
-      .tab:hover,
       .tab.active {
-        color: black;
-        border-color: #ff0000;
+        background-color: rgb(115, 114, 114);
+        border-color: #ccc;
+        color: white;
+        font-size: 16px;
       }
 
       .selection {
@@ -79,35 +85,41 @@
         height: 35px;
         position: relative;
         border: 2px solid transparent;
-        border-radius: 0;
-        background-color: #ddd; /* Default background to make inactive state visible */
+        border-radius: 5px;
+        background-color: #55c2da;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .tab-shadeTab.active-shade {
-        border: 4px solid white;
+        border: 4px solid #fff;
       }
 
       .tab-shadeTab.active-shade::after {
-        content: "✔";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        font-size: 20px;
+        content: "";
       }
 
       .tabs-container {
-        background-color: #55c2da;
-        border: 4px solid #ccc;
-        border-radius: 8px;
-        padding: 15px;
-        margin: 20px auto;
-        width: 40%;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+        background-color: #cdebfd;
+        /* border: 6px solid #ccc; */
+        /* border-radius: 10px; */
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 50%;
+        margin: 0 auto;
+      }
+
+      .tabs-container .tab:last-child {
+        border-radius: 0 0 5px 5px;
+      }
+      .tab-shadeTab.active-shade::after {
+        content: "✔";
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        color: white;
+        font-size: 20px;
       }
 
       @media screen and (max-width: 720px) {
@@ -116,19 +128,37 @@
         }
 
         .tabs {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center; /* Center items vertically */
+          margin-bottom: 20px;
+          overflow-x: hidden; /* Hide horizontal scrollbar */
         }
 
-        .tabs + .tabs {
-          grid-template-columns: repeat(2, 1fr);
+        .tab {
+          flex: 1 1 auto; /* Allow tabs to grow and shrink as needed */
+          min-width: 50px; /* Set a minimum width for each tab */
+          box-sizing: border-box; /* Include padding and border in the element's total width */
+          padding: 0.5em; /* Adjust padding as needed */
+          text-align: center;
         }
+
         .tabs-container {
-          width: 85%;
+          width: 100%; /* Adjust width to fit all content */
+          margin: 0 auto;
         }
+
         iframe {
           margin-right: 30px;
+        }
+      }
+      @media screen and (min-width: 360px) {
+        .tab {
+          flex: 0 0 auto;
+          width: auto;
+          max-width: 100px;
+          box-sizing: border-box;
+          font-size: 11px;
         }
       }
     </style>
@@ -154,8 +184,7 @@
       let data;
       var product = "";
       let colorCode;
-      let activeColors = {}; // Object to track active colors for each product type, ensuring persistence across product types
-
+      let activeColors = {};
       fetch("./json/cosmetic.json")
         .then((response) => response.json())
         .then((loadedData) => {
@@ -175,16 +204,26 @@
 
       function handleCosmeticTabClick(cosmetic) {
         product = cosmetic.type;
+        const tabsElement = document.getElementById("cosmeticTabs");
         const shadeTabsElement = document.getElementById("shadeTabs");
-        shadeTabsElement.innerHTML = "";
-        shadeTabsElement.style.display = "flex";
+
+        // Reset all tabs to remove the 'active' class
+        document.querySelectorAll(".tab").forEach((tab) => {
+          tab.classList.remove("active");
+        });
+
+        // Set the clicked cosmetic tab to active
+        event.target.classList.add("active");
+
+        shadeTabsElement.innerHTML = ""; // Clear previous shades
+        shadeTabsElement.style.display = "flex"; // Show the shades container
 
         cosmetic.shades.forEach((shade) => {
           const tabButton = document.createElement("button");
           tabButton.className = "tab-shadeTab";
           tabButton.style.backgroundColor = shade.color;
 
-          // Ensure active state is reflected for each tab based on activeColors tracking
+          // Check if this shade is currently active
           if (
             activeColors[product] &&
             activeColors[product].includes(shade.color)
@@ -192,11 +231,14 @@
             tabButton.classList.add("active-shade");
           }
 
-          tabButton.onclick = () => {
+          tabButton.onclick = function () {
+            // Toggle the 'active-shade' class for this button
             const isActive = tabButton.classList.contains("active-shade");
+            document.querySelectorAll(".tab-shadeTab").forEach((tab) => {
+              tab.classList.remove("active-shade"); // Remove active from all shade tabs
+            });
 
             if (isActive) {
-              // Remove active state for this color
               tabButton.classList.remove("active-shade");
               const index = activeColors[product].indexOf(shade.color);
               if (index > -1) {
@@ -206,12 +248,9 @@
                 delete activeColors[product];
               }
             } else {
-              // Set active state for this color
-              if (!activeColors[product]) activeColors[product] = [];
-              if (!activeColors[product].includes(shade.color)) {
-                activeColors[product].push(shade.color);
-              }
               tabButton.classList.add("active-shade");
+              if (!activeColors[product]) activeColors[product] = [];
+              activeColors[product] = [shade.color]; // Set the active color for the product
             }
 
             applyShade(shade.color);
@@ -232,7 +271,6 @@
           }
         });
       }
-      // The rest of your code remains unchanged
 
       function applyShade(selectedColorCode) {
         colorCode = selectedColorCode;
@@ -251,7 +289,7 @@
           tabButton.classList.remove("active-shade");
           const demoElement = document.getElementById("demoElement");
           if (demoElement) {
-            demoElement.style.backgroundColor = ""; // Assuming a default or initial state is desired
+            demoElement.style.backgroundColor = "";
             console.log("Removed shade for color code:", selectedColorCode);
           } else {
             console.log("Element 'demoElement' not found.");

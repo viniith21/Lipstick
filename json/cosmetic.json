@@ -119,6 +119,10 @@
           {
             "name": "Red",
             "color": "#FF0000"
+          },
+          {
+            "name": "WoodyFlush",
+            "color": "#76777b"
           }
         ]
       }
