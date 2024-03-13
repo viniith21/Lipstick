@@ -86,12 +86,14 @@ var Kajal = 0,
   EyeShade = 0,
   Blush = 0,
   Eyeliner = 0;
+Eyebrows = 0;
 
 var KajalShade;
 var LipstickShade;
 var EyeShadeShade;
 var BlushShade;
 var EyelinerShade;
+var EyebrowsShade;
 
 const state = {
   backend: "wasm",
@@ -168,6 +170,8 @@ function handleMessage() {
     case "Eyeliner":
       toggleProductApplication("Eyeliner", "Eyeliner", "EyelinerShade");
       break;
+    case "Eyebrows":
+      toggleProductApplication("Eyebrows", "Eyebrows", "EyebrowsShade");
     default:
       console.log("Unknown product: " + product);
   }
@@ -221,6 +225,9 @@ function update(product, colorCode) {
   } else if (product == "Eyeliner") {
     Eyeliner = 1;
     EyelinerShade = colorCode;
+  } else if (product == "Eyebrows") {
+    Eyebrows = 1;
+    EyebrowsShade = colorCode;
   }
 }
 
@@ -554,6 +561,51 @@ async function longCalculation(image) {
 
           hiddenCtx1.closePath();
         }
+        if (Eyebrows == 1) {
+          hiddenCtx1.globalAlpha = 0.3;
+          hiddenCtx1.strokeStyle = EyebrowsShade;
+          hiddenCtx1.fillStyle = EyebrowsShade;
+          hiddenCtx1.filter = "blur(3px)";
+
+          hiddenCtx1.lineWidth = -1;
+          hiddenCtx1.beginPath();
+          hiddenCtx1.moveTo(keypoints[55][0], keypoints[55][1]);
+          hiddenCtx1.lineTo(keypoints[65][0], keypoints[65][1]);
+          hiddenCtx1.lineTo(keypoints[52][0], keypoints[53][1]);
+          hiddenCtx1.lineTo(keypoints[46][0], keypoints[46][1]);
+          hiddenCtx1.lineTo(keypoints[139][0], keypoints[139][1]);
+          hiddenCtx1.lineTo(keypoints[63][0], keypoints[63][1] + 5);
+          hiddenCtx1.lineTo(keypoints[105][0], keypoints[105][1] + 4);
+          hiddenCtx1.lineTo(keypoints[66][0], keypoints[66][1] + 3);
+          hiddenCtx1.lineTo(keypoints[107][0], keypoints[107][1] + 7);
+          hiddenCtx1.lineTo(keypoints[55][0], keypoints[55][1]);
+
+          hiddenCtx1.fill();
+          hiddenCtx1.stroke();
+
+          hiddenCtx1.closePath();
+
+          hiddenCtx1.lineWidth = -1;
+          hiddenCtx1.beginPath();
+          hiddenCtx1.moveTo(keypoints[336][0], keypoints[336][1] + 3);
+          hiddenCtx1.lineTo(keypoints[296][0], keypoints[296][1]);
+          hiddenCtx1.lineTo(keypoints[334][0], keypoints[334][1]);
+          hiddenCtx1.lineTo(keypoints[293][0], keypoints[293][1]);
+          hiddenCtx1.lineTo(keypoints[300][0], keypoints[300][1] - 1);
+          hiddenCtx1.lineTo(keypoints[368][0], keypoints[368][1]);
+          hiddenCtx1.lineTo(keypoints[276][0], keypoints[276][1] - 4);
+          hiddenCtx1.lineTo(keypoints[283][0], keypoints[283][1]);
+          hiddenCtx1.lineTo(keypoints[282][0], keypoints[282][1] - 1);
+          hiddenCtx1.lineTo(keypoints[295][0], keypoints[295][1] - 2);
+          hiddenCtx1.lineTo(keypoints[285][0], keypoints[285][1] - 3);
+          hiddenCtx1.lineTo(keypoints[336][0], keypoints[336][1] + 3);
+
+          hiddenCtx1.fill();
+          hiddenCtx1.stroke();
+
+          hiddenCtx1.closePath();
+        }
+
         if (isMobile.apple.phone || isSafari) {
           var idata = Filters.convolute(
             hiddenCtx1.getImageData(
