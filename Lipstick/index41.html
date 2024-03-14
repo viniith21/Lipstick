@@ -82,12 +82,23 @@
           transform: rotate(360deg);
         }
       }
+
+      .spinner-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .spinner {
+        width: 50px;
+        height: 50px;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <div class="center">
-        <!-- <img src="../Lipstick/women.jpeg" id="image" /> -->
         <img src="../Lipstick/women.jpeg" id="image" />
         <button
           id="tryon"
@@ -106,9 +117,11 @@
           "
         >
           TRY-ON &nbsp;
-          <!-- <i class="fa-duotone fa-camera-viewfinder"></i> -->
           <i class="fas fa-camera"></i>
         </button>
+      </div>
+      <div id="spinner" class="spinner-container">
+        <img src="../asset/spinner.gif" class="spinner" alt="Loading..." />
       </div>
       <div id="div_canvas" class="center">
         <canvas
@@ -159,27 +172,14 @@
         "
       ></video>
     </div>
-    <script>
-      // var globalProduct = null;
-      // var globalColorCode = null;
-
-      // window.addEventListener(
-      //   "message",
-      //   (event) => {
-      //     console.log("Received message:", event.data); // Check if this logs
-      //     if (event.data.type === "updateProductAndColor") {
-      //       globalProduct = event.data.product;
-      //       globalColorCode = event.data.colorCode;
-      //       console.log(
-      //         "Product and color set:",
-      //         globalProduct,
-      //         globalColorCode
-      //       ); // Confirm values are set
-      //     }
-      //   },
-      //   false
-      // );
-    </script>
     <script type="text/javascript" src="indexnew.js"></script>
+    <script>
+      document.getElementById("tryon").addEventListener("click", async (e) => {
+        // Show spinner and change text to "LOADING CAMERA"
+        document.getElementById("spinner").style.display = "block";
+        document.getElementById("tryon").innerText = "LOADING CAMERA";
+        await main();
+      });
+    </script>
   </body>
 </html>

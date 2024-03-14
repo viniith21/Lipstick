@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>StackBlur.js Demo</title>
+    <title>Easiofy Lipstick</title>
     <style>
       html,
       body {
@@ -61,10 +61,10 @@
         cursor: pointer;
         transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         font-size: 16px;
-        flex: 1 1 auto; /* Allow tabs to grow and shrink as needed */
-        min-width: 100px; /* Set a fixed width for each tab */
-        box-sizing: border-box; /* Include padding and border in the element's total width */
-        padding: 10px; /* Adjust padding as needed */
+        flex: 1 1 auto;
+        min-width: 100px;
+        box-sizing: border-box;
+        padding: 10px;
         text-align: center;
       }
 
@@ -130,21 +130,21 @@
         .tabs {
           display: flex;
           justify-content: center;
-          align-items: center; /* Center items vertically */
+          align-items: center;
           margin-bottom: 20px;
-          overflow-x: hidden; /* Hide horizontal scrollbar */
+          overflow-x: hidden;
         }
 
         .tab {
-          flex: 1 1 auto; /* Allow tabs to grow and shrink as needed */
-          min-width: 50px; /* Set a minimum width for each tab */
-          box-sizing: border-box; /* Include padding and border in the element's total width */
-          padding: 0.5em; /* Adjust padding as needed */
+          flex: 1 1 auto;
+          min-width: 50px;
+          box-sizing: border-box;
+          padding: 0.5em;
           text-align: center;
         }
 
         .tabs-container {
-          width: 100%; /* Adjust width to fit all content */
+          width: 100%;
           margin: 0 auto;
         }
 
@@ -207,23 +207,20 @@
         const tabsElement = document.getElementById("cosmeticTabs");
         const shadeTabsElement = document.getElementById("shadeTabs");
 
-        // Reset all tabs to remove the 'active' class
         document.querySelectorAll(".tab").forEach((tab) => {
           tab.classList.remove("active");
         });
 
-        // Set the clicked cosmetic tab to active
         event.target.classList.add("active");
 
-        shadeTabsElement.innerHTML = ""; // Clear previous shades
-        shadeTabsElement.style.display = "flex"; // Show the shades container
+        shadeTabsElement.innerHTML = "";
+        shadeTabsElement.style.display = "flex";
 
         cosmetic.shades.forEach((shade) => {
           const tabButton = document.createElement("button");
           tabButton.className = "tab-shadeTab";
           tabButton.style.backgroundColor = shade.color;
 
-          // Check if this shade is currently active
           if (
             activeColors[product] &&
             activeColors[product].includes(shade.color)
@@ -232,10 +229,9 @@
           }
 
           tabButton.onclick = function () {
-            // Toggle the 'active-shade' class for this button
             const isActive = tabButton.classList.contains("active-shade");
             document.querySelectorAll(".tab-shadeTab").forEach((tab) => {
-              tab.classList.remove("active-shade"); // Remove active from all shade tabs
+              tab.classList.remove("active-shade");
             });
 
             if (isActive) {
@@ -250,7 +246,7 @@
             } else {
               tabButton.classList.add("active-shade");
               if (!activeColors[product]) activeColors[product] = [];
-              activeColors[product] = [shade.color]; // Set the active color for the product
+              activeColors[product] = [shade.color];
             }
 
             applyShade(shade.color);
@@ -301,8 +297,17 @@
         let iframeSrc = `./Lipstick/index41.html?param1=${encodeURIComponent(
           colorCode
         )}&param2=${product}`;
-        document.getElementById("projectBIframe").src = iframeSrc;
-        updateIframe(product, colorCode);
+        const iframe = document.getElementById("projectBIframe");
+        iframe.onload = function () {
+          updateIframe(product, colorCode);
+          const lipstickTab = document.querySelector(".tab:nth-of-type(1)");
+          if (lipstickTab) {
+            lipstickTab.click();
+          } else {
+            console.error("Lipstick tab not found.");
+          }
+        };
+        iframe.src = iframeSrc;
       }
 
       function updateIframe(product, colorCode) {

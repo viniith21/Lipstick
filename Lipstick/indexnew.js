@@ -710,6 +710,9 @@ async function showImage() {
 
 //   renderPrediction();
 // }
+// Initially hide the spinner
+document.getElementById("spinner").style.display = "none";
+
 async function main() {
   try {
     await tf.setBackend(state.backend);
@@ -736,14 +739,15 @@ async function main() {
         video: { facingMode: "user" },
       });
       video.srcObject = stream;
+
+      video.onloadedmetadata = () => {
+        video.play().catch((e) => console.error("Error playing video: ", e));
+        document.getElementById("spinner").style.display = "none";
+      };
     } catch (err) {
       console.error("Error accessing video stream: ", err);
-      return; // Exit the function if stream is not available.
+      return;
     }
-
-    video.onloadedmetadata = () => {
-      video.play().catch((e) => console.error("Error playing video: ", e));
-    };
 
     ctx = canvas.getContext("2d");
     ctx.translate(canvas.width, 0);
@@ -757,8 +761,9 @@ async function main() {
   }
 }
 
-document.getElementById("tryon").addEventListener("click", (e) => {
-  main();
+document.getElementById("tryon").addEventListener("click", async (e) => {
+  document.getElementById("spinner").style.display = "block";
+  await main();
 });
 
 showImage();
