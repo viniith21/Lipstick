@@ -102,8 +102,6 @@
 
       .tabs-container {
         background-color: #cdebfd;
-        /* border: 6px solid #ccc; */
-        /* border-radius: 10px; */
         overflow: hidden;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         width: 50%;
@@ -116,7 +114,8 @@
       .tab-shadeTab.active-shade::after {
         content: "✔";
         position: absolute;
-        top: 5px;
+        top: 50%;
+        transform: translateY(-50%);
         right: 5px;
         color: white;
         font-size: 20px;
@@ -196,9 +195,12 @@
             const tabButton = document.createElement("button");
             tabButton.className = "tab";
             tabButton.textContent = cosmetic.type_display;
+            tabButton.dataset.type = cosmetic.type;
             tabButton.onclick = () => handleCosmeticTabClick(cosmetic);
             tabsElement.appendChild(tabButton);
           });
+
+          setDefaultSelection();
         })
         .catch((error) => console.error("Error fetching data:", error));
 
@@ -219,6 +221,7 @@
         cosmetic.shades.forEach((shade) => {
           const tabButton = document.createElement("button");
           tabButton.className = "tab-shadeTab";
+          tabButton.dataset.color = shade.color;
           tabButton.style.backgroundColor = shade.color;
 
           if (
@@ -290,6 +293,39 @@
           } else {
             console.log("Element 'demoElement' not found.");
           }
+        }
+      }
+
+      function setDefaultSelection() {
+        const lipstickType = data.Cosmetics.find(
+          (cosmetic) => cosmetic.type === "Lipstick"
+        );
+        if (!lipstickType) {
+          console.error("Lipstick type not found in cosmetics data.");
+          return;
+        }
+
+        const lipstickTab = document.querySelector(
+          `.tab[data-type="${lipstickType.type}"]`
+        );
+        lipstickTab.click();
+
+        const defaultShade = lipstickType.shades[0];
+        if (!defaultShade) {
+          console.error("No shades found for Lipstick type.");
+          return;
+        }
+
+        applyShade(defaultShade.color);
+        updateIframe(lipstickType.type, defaultShade.color);
+
+        const defaultColorShadeButton = document.querySelector(
+          `.tab-shadeTab[data-color="${defaultShade.color}"]`
+        );
+        if (defaultColorShadeButton) {
+          defaultColorShadeButton.classList.add("active-shade");
+        } else {
+          console.error("Default color shade button not found.");
         }
       }
 

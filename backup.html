@@ -1050,3 +1050,610 @@
     </script>
   </body>
 </html>
+//new css
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Easiofy Lipstick</title>
+    <style>
+      html,
+      body {
+        overflow-x: hidden;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        color: #ab7373;
+        /* background-image: url("asset/pink.png"); */
+        background-color: #fdf9f7;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .container {
+        top: 12px;
+        width: 450px;
+        background-color: white; /* Content box background color */
+        border: 1px solid #ccc; /* Border for the content box */
+        border-radius: 0 0 5px 5px; /* Rounded corners at the bottom */
+        position: relative;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 22px;
+      }
+
+      iframe {
+        height: 400px;
+        width: 300px;
+      }
+
+      h1 {
+        font-size: 32px;
+        color: #9b4444;
+        text-shadow: 2px 2px 0 #fff, 4px 4px 0 #bbb;
+        transform: skew(-10deg);
+        margin-bottom: 20px;
+      }
+
+      .tabs {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .tab {
+        border-bottom: none;
+        margin-bottom: -1px;
+        padding: 10px 20px;
+        background-color: #f5f5f5;
+        color: #555;
+        border: 1px solid #ccc;
+        border-bottom: none;
+        border-radius: 0;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s,
+          box-shadow 0.3s, transform 0.3s; /* Add transform to the transition */
+        transform: translateY(2px); /* Push the non-active tabs down a bit */
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); /* Add some shadow for depth */
+        font-size: 16px;
+        flex: 1 1 auto;
+        min-width: 100px;
+        box-sizing: border-box;
+        padding: 10px;
+        z-index: 1;
+        text-align: center;
+      }
+
+      .tab.active {
+        background-color: #847995;
+        color: white;
+        border-color: #847995;
+        border-bottom: none;
+        font-size: 16px;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.4);
+      }
+
+      .selection {
+        text-align: center;
+        padding: 20px;
+      }
+
+      .tab-shadeTab {
+        width: 35px;
+        height: 35px;
+        position: relative;
+        border: 2px solid transparent;
+        border-radius: 5px;
+        background-color: #55c2da;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .tab-shadeTab.active-shade {
+        border: 4px solid #fff;
+      }
+
+      .tab-shadeTab.active-shade::after {
+        content: "";
+      }
+
+      /* .tabs-container {
+            background-color: #cdebfd;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            margin: 0 auto;
+          } */
+      .tabs-container {
+        background-color: #f8e8e8; /* Match the color of the content box */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 5px 5px 0 0; /* Adjust as needed */
+        display: inline-block; /* This will make the container only as wide as its content */
+        /* padding: 0 60px; */
+        width: 45%;
+        margin: 0 auto; /* Center the container */
+        text-align: left; /* Ensure that the contents inside are aligned to the left */
+      }
+
+      .tabs-container .tab:last-child {
+        border-radius: 0 0 5px 5px;
+      }
+      .tab-shadeTab.active-shade::after {
+        content: "✔";
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 5px;
+        color: white;
+        font-size: 20px;
+      }
+      #footer {
+        background-color: #f8e8e8;
+        width: 100%; /* Ensure it covers the full width */
+
+        position: relative;
+        margin-top: -1px; /* Overlap the border of the above element if necessary */
+        box-sizing: border-box; /* Makes sure padding and borders are included in the width and height */
+      }
+      #top {
+        text-align: center; /* Centers inline-block elements within */
+        background-color: #fdf9f7; /* Your desired background color */
+        padding: 20px 0; /* This adds vertical space around the heading, adjust as needed */
+      }
+
+      .heading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f8e8e8; /* The background color you want for the heading */
+        padding: 10px; /* Adds some space around the text, adjust as needed */
+        border-radius: 5px; /* Optional: if you want rounded corners */
+        margin: 0; /* Removes the default margin */
+        height: 60px;
+      }
+
+      @media screen and (max-width: 720px) {
+        .container {
+          width: calc(100% - 1rem);
+        }
+
+        .tabs {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 20px;
+          overflow-x: hidden;
+        }
+
+        .tab {
+          flex: 1 1 auto;
+          min-width: 50px;
+          box-sizing: border-box;
+          padding: 0.5em;
+          text-align: center;
+        }
+
+        .tabs-container {
+          width: 100%;
+          margin: 0 auto;
+        }
+
+        iframe {
+          margin-right: 30px;
+        }
+      }
+      @media screen and (min-width: 360px) {
+        .tab {
+          flex: 0 0 auto;
+          width: auto;
+          max-width: 100px;
+          box-sizing: border-box;
+          font-size: 11px;
+        }
+      }
+    </style>
+  </head>
+
+  <body onload="openIframe()">
+    <div id="top">
+      <h1
+        id="title"
+        style="
+          background-color: #f8e8e8;
+          display: inline-block;
+          padding: 10px 20px;
+          border-radius: 5px;
+        "
+      >
+        Virtual Try-On
+      </h1>
+
+      <div class="container">
+        <iframe
+          id="projectBIframe"
+          width="600"
+          height="400"
+          scrolling="off"
+        ></iframe>
+      </div>
+    </div>
+    <br />
+
+    <div id="footer">
+      <div class="tabs-container">
+        <div class="tabs" id="cosmeticTabs"></div>
+        <div class="tabs" id="shadeTabs" style="display: none"></div>
+      </div>
+    </div>
+    <script>
+      let data;
+      var product = "";
+      let colorCode;
+      let activeColors = {};
+      fetch("./json/cosmetic.json")
+        .then((response) => response.json())
+        .then((loadedData) => {
+          data = loadedData;
+          const cosmeticTypes = data.Cosmetics || [];
+          const tabsElement = document.getElementById("cosmeticTabs");
+
+          cosmeticTypes.forEach((cosmetic) => {
+            const tabButton = document.createElement("button");
+            tabButton.className = "tab";
+            tabButton.textContent = cosmetic.type_display;
+            tabButton.dataset.type = cosmetic.type;
+            tabButton.onclick = () => handleCosmeticTabClick(cosmetic);
+            tabsElement.appendChild(tabButton);
+          });
+
+          setDefaultSelection();
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+
+      function handleCosmeticTabClick(cosmetic) {
+        product = cosmetic.type;
+        const tabsElement = document.getElementById("cosmeticTabs");
+        const shadeTabsElement = document.getElementById("shadeTabs");
+
+        document.querySelectorAll(".tab").forEach((tab) => {
+          tab.classList.remove("active");
+        });
+
+        event.target.classList.add("active");
+
+        shadeTabsElement.innerHTML = "";
+        shadeTabsElement.style.display = "flex";
+
+        cosmetic.shades.forEach((shade) => {
+          const tabButton = document.createElement("button");
+          tabButton.className = "tab-shadeTab";
+          tabButton.dataset.color = shade.color;
+          tabButton.style.backgroundColor = shade.color;
+
+          if (
+            activeColors[product] &&
+            activeColors[product].includes(shade.color)
+          ) {
+            tabButton.classList.add("active-shade");
+          }
+
+          tabButton.onclick = function () {
+            const isActive = tabButton.classList.contains("active-shade");
+            document.querySelectorAll(".tab-shadeTab").forEach((tab) => {
+              tab.classList.remove("active-shade");
+            });
+
+            if (isActive) {
+              tabButton.classList.remove("active-shade");
+              const index = activeColors[product].indexOf(shade.color);
+              if (index > -1) {
+                activeColors[product].splice(index, 1);
+              }
+              if (activeColors[product].length === 0) {
+                delete activeColors[product];
+              }
+            } else {
+              tabButton.classList.add("active-shade");
+              if (!activeColors[product]) activeColors[product] = [];
+              activeColors[product] = [shade.color];
+            }
+
+            applyShade(shade.color);
+            updateIframe(product, shade.color);
+          };
+          shadeTabsElement.appendChild(tabButton);
+        });
+      }
+
+      function resetShades(container, currentTab, color, setActive) {
+        container.querySelectorAll(".tab-shadeTab").forEach((tab) => {
+          if (tab.style.backgroundColor === color) {
+            if (setActive) {
+              tab.classList.add("active-shade");
+            } else {
+              tab.classList.remove("active-shade");
+            }
+          }
+        });
+      }
+
+      function applyShade(selectedColorCode) {
+        colorCode = selectedColorCode;
+        const demoElement = document.getElementById("demoElement");
+        if (demoElement) {
+          demoElement.style.backgroundColor = colorCode;
+          console.log("Applied color code:", colorCode);
+        } else {
+          console.log("Element 'demoElement' not found.");
+        }
+      }
+
+      function removeShade(selectedColorCode, tabButton) {
+        if (colorCode === selectedColorCode) {
+          colorCode = null;
+          tabButton.classList.remove("active-shade");
+          const demoElement = document.getElementById("demoElement");
+          if (demoElement) {
+            demoElement.style.backgroundColor = "";
+            console.log("Removed shade for color code:", selectedColorCode);
+          } else {
+            console.log("Element 'demoElement' not found.");
+          }
+        }
+      }
+
+      function setDefaultSelection() {
+        const lipstickType = data.Cosmetics.find(
+          (cosmetic) => cosmetic.type === "Lipstick"
+        );
+        if (!lipstickType) {
+          console.error("Lipstick type not found in cosmetics data.");
+          return;
+        }
+
+        const lipstickTab = document.querySelector(
+          `.tab[data-type="${lipstickType.type}"]`
+        );
+        lipstickTab.click();
+
+        const defaultShade = lipstickType.shades[0];
+        if (!defaultShade) {
+          console.error("No shades found for Lipstick type.");
+          return;
+        }
+
+        applyShade(defaultShade.color);
+        updateIframe(lipstickType.type, defaultShade.color);
+
+        const defaultColorShadeButton = document.querySelector(
+          `.tab-shadeTab[data-color="${defaultShade.color}"]`
+        );
+        if (defaultColorShadeButton) {
+          defaultColorShadeButton.classList.add("active-shade");
+        } else {
+          console.error("Default color shade button not found.");
+        }
+      }
+
+      function openIframe() {
+        let iframeSrc = `./Lipstick/index41.html?param1=${encodeURIComponent(
+          colorCode
+        )}&param2=${product}`;
+        const iframe = document.getElementById("projectBIframe");
+        iframe.onload = function () {
+          updateIframe(product, colorCode);
+          const lipstickTab = document.querySelector(".tab:nth-of-type(1)");
+          if (lipstickTab) {
+            lipstickTab.click();
+          } else {
+            console.error("Lipstick tab not found.");
+          }
+        };
+        iframe.src = iframeSrc;
+      }
+
+      function updateIframe(product, colorCode) {
+        const message = {
+          type: "updateProductAndColor",
+          product: product,
+          colorCode: colorCode,
+        };
+        const iframe = document.getElementById("projectBIframe").contentWindow;
+        iframe.postMessage(message, "*");
+      }
+    </script>
+  </body>
+</html>
+//new index41.html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter@3.7.0/dist/tf-converter.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+
+    <!-- Alternatively you can use the WASM backend:-->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm/dist/tf-backend-wasm.js"></script>
+    <script src="https://unpkg.com/@tensorflow-models/face-landmarks-detection@0.0.3/dist/face-landmarks-detection.min.js"></script>
+    <script src="image_filter.js"></script>
+
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        color: #333;
+      }
+
+      .container {
+        background: #e75985;
+      }
+
+      .center {
+        margin: auto;
+      }
+
+      #image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 300px; /* Set the width to 300 pixels */
+        height: 450px; /* Set the height to 450 pixels */
+        object-fit: cover;
+        display: block;
+      }
+
+      @media only screen and (max-width: 600px) {
+        .center {
+          width: 100%;
+        }
+        .loader {
+          display: absolute;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 50%;
+          border: 5px solid #444444;
+          border-radius: 50%;
+          border-top: 5px solid #3498db;
+          width: 40px;
+          height: 40px;
+          -webkit-animation: spin 1s linear infinite; /* Safari */
+          animation: spin 1s linear infinite;
+          z-index: 2;
+        }
+      }
+
+      /* Safari */
+      @-webkit-keyframes spin {
+        0% {
+          -webkit-transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .spinner-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .spinner {
+        width: 50px;
+        height: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="center">
+        <img src="../asset/Lady.png" id="image" />
+        <button
+          id="tryon"
+          type="button"
+          style="
+            font-size: 14px;
+            width: 100px;
+            height: 40px;
+            position: fixed;
+            top: 0px;
+            right: 111px;
+            box-sizing: border-box;
+            background-color: #4095c6;
+            border-radius: 2em;
+            text-align: center;
+          "
+        >
+          TRY-ON &nbsp;
+          <i class="fas fa-camera"></i>
+        </button>
+      </div>
+      <div id="spinner" class="spinner-container">
+        <img src="../asset/spinner.gif" class="spinner" alt="Loading..." />
+      </div>
+      <div id="div_canvas" class="center">
+        <canvas
+          id="output"
+          width="300px"
+          height="400px"
+          style="background-color: black"
+        ></canvas>
+        <div class="loader"></div>
+      </div>
+      <div class="center">
+        <canvas
+          width="300px"
+          height="400px"
+          id="tempCanvas"
+          style="display: none"
+        ></canvas>
+      </div>
+      <div class="center">
+        <canvas
+          width="300px"
+          height="400px"
+          id="hiddenCanvas"
+          style="display: none"
+        ></canvas>
+      </div>
+      <div class="center">
+        <canvas
+          width="300px"
+          height="400px"
+          id="hiddenCanvas1"
+          style="display: none"
+        ></canvas>
+      </div>
+      <video
+        autoplay
+        muted
+        playsinline
+        webkit-playsinline
+        id="videoElement"
+        style="
+          height: auto;
+          width: auto;
+          -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+          z-index: -1000;
+          display: none;
+        "
+      ></video>
+    </div>
+    <script type="text/javascript" src="indexnew.js"></script>
+    <script>
+      document.getElementById("tryon").addEventListener("click", async (e) => {
+        // Show spinner and change text to "LOADING CAMERA"
+        document.getElementById("spinner").style.display = "block";
+        document.getElementById("tryon").innerText = "LOADING CAMERA";
+        await main();
+      });
+    </script>
+  </body>
+</html>
