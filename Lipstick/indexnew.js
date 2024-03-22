@@ -276,7 +276,7 @@ async function longCalculation(image) {
 
         hiddenCtx1.clearRect(0, 0, canvas.width, canvas.height);
         if (Kajal == 1) {
-          hiddenCtx1.globalAlpha = 0.7;
+          hiddenCtx1.globalAlpha = 1.0;
           hiddenCtx1.strokeStyle = KajalShade;
           hiddenCtx1.fillStyle = KajalShade;
           hiddenCtx1.filter = "blur(1px)";
@@ -333,80 +333,148 @@ async function longCalculation(image) {
           hiddenCtx1.closePath();
         }
         if (Lipstick == 1) {
-          const lipsUpperOuter = prediction.annotations.lipsUpperOuter;
-          const lipsUpperInner = prediction.annotations.lipsUpperInner;
-          const lipsLowerOuter = prediction.annotations.lipsLowerOuter;
-          const lipsLowerInner = prediction.annotations.lipsLowerInner;
-          hiddenCtx1.globalAlpha = 0.6;
+          // const lipsUpperOuter = prediction.annotations.lipsUpperOuter;
+          // const lipsUpperInner = prediction.annotations.lipsUpperInner;
+          // const lipsLowerOuter = prediction.annotations.lipsLowerOuter;
+          // const lipsLowerInner = prediction.annotations.lipsLowerInner;
+          // hiddenCtx1.globalAlpha = 0.6;
+          // hiddenCtx1.strokeStyle = LipstickShade;
+          // hiddenCtx1.fillStyle = LipstickShade;
+          // hiddenCtx1.filter = "blur(1px)";
+
+          // hiddenCtx1.lineWidth = 0;
+          // hiddenCtx1.beginPath();
+          // hiddenCtx1.moveTo(lipsUpperOuter[0][0], lipsUpperOuter[0][1]);
+          // hiddenCtx1.lineTo(lipsUpperOuter[1][0], lipsUpperOuter[1][1]);
+          // hiddenCtx1.lineTo(lipsUpperOuter[2][0], lipsUpperOuter[2][1]);
+          // hiddenCtx1.lineTo(lipsUpperOuter[3][0], lipsUpperOuter[3][1]);
+          // hiddenCtx1.lineTo(lipsUpperOuter[4][0], lipsUpperOuter[4][1]);
+          // hiddenCtx1.lineTo(lipsUpperOuter[5][0], lipsUpperOuter[5][1] + 3);
+          // hiddenCtx1.lineTo(lipsUpperOuter[6][0], lipsUpperOuter[6][1]);
+          // hiddenCtx1.lineTo(lipsUpperOuter[7][0], lipsUpperOuter[7][1]);
+          // hiddenCtx1.lineTo(lipsUpperOuter[8][0], lipsUpperOuter[8][1]);
+          // hiddenCtx1.lineTo(lipsUpperOuter[9][0], lipsUpperOuter[9][1]);
+          // hiddenCtx1.lineTo(lipsUpperOuter[10][0], lipsUpperOuter[10][1]);
+
+          // hiddenCtx1.lineTo(lipsUpperInner[10][0], lipsUpperInner[10][1] + 2);
+          // hiddenCtx1.lineTo(lipsUpperInner[9][0], lipsUpperInner[9][1] + 2);
+          // hiddenCtx1.lineTo(lipsUpperInner[8][0], lipsUpperInner[8][1] + 2);
+          // hiddenCtx1.lineTo(lipsUpperInner[7][0], lipsUpperInner[7][1] + 2);
+          // hiddenCtx1.lineTo(lipsUpperInner[6][0], lipsUpperInner[6][1] + 2);
+          // hiddenCtx1.lineTo(lipsUpperInner[5][0], lipsUpperInner[5][1] + 2);
+          // hiddenCtx1.lineTo(lipsUpperInner[4][0], lipsUpperInner[4][1] + 2);
+          // hiddenCtx1.lineTo(lipsUpperInner[3][0], lipsUpperInner[3][1] + 2);
+          // hiddenCtx1.lineTo(lipsUpperInner[2][0], lipsUpperInner[2][1] + 2);
+          // hiddenCtx1.lineTo(lipsUpperInner[1][0], lipsUpperInner[1][1] + 2);
+          // hiddenCtx1.lineTo(lipsUpperInner[0][0], lipsUpperInner[0][1] + 2);
+          // hiddenCtx1.lineTo(lipsUpperOuter[0][0], lipsUpperOuter[0][1]);
+
+          // hiddenCtx1.fill();
+          // hiddenCtx1.stroke();
+
+          // hiddenCtx1.closePath();
+
+          // hiddenCtx1.globalAlpha = 0.6;
+          // hiddenCtx1.strokeStyle = LipstickShade;
+          // hiddenCtx1.fillStyle = LipstickShade;
+          // hiddenCtx1.filter = "blur(1px)";
+
+          // hiddenCtx1.lineWidth = 0;
+          // hiddenCtx1.beginPath();
+          // hiddenCtx1.moveTo(lipsLowerOuter[0][0], lipsLowerOuter[0][1]);
+          // hiddenCtx1.lineTo(lipsLowerOuter[1][0], lipsLowerOuter[1][1]);
+          // hiddenCtx1.lineTo(lipsLowerOuter[2][0], lipsLowerOuter[2][1]);
+          // hiddenCtx1.lineTo(lipsLowerOuter[3][0], lipsLowerOuter[3][1]);
+          // hiddenCtx1.lineTo(lipsLowerOuter[4][0], lipsLowerOuter[4][1]);
+          // hiddenCtx1.lineTo(lipsLowerOuter[5][0], lipsLowerOuter[5][1]);
+          // hiddenCtx1.lineTo(lipsLowerOuter[6][0], lipsLowerOuter[6][1]);
+          // hiddenCtx1.lineTo(lipsLowerOuter[7][0], lipsLowerOuter[7][1]);
+          // hiddenCtx1.lineTo(lipsLowerOuter[8][0], lipsLowerOuter[8][1]);
+          // hiddenCtx1.lineTo(lipsLowerOuter[9][0], lipsLowerOuter[9][1]);
+
+          // hiddenCtx1.lineTo(lipsLowerInner[10][0], lipsLowerInner[10][1] - 1);
+          // hiddenCtx1.lineTo(lipsLowerInner[9][0], lipsLowerInner[9][1] - 1);
+          // hiddenCtx1.lineTo(lipsLowerInner[8][0], lipsLowerInner[8][1] - 1);
+          // hiddenCtx1.lineTo(lipsLowerInner[7][0], lipsLowerInner[7][1] - 1);
+          // hiddenCtx1.lineTo(lipsLowerInner[6][0], lipsLowerInner[6][1] - 1);
+          // hiddenCtx1.lineTo(lipsLowerInner[5][0], lipsLowerInner[5][1] - 1);
+          // hiddenCtx1.lineTo(lipsLowerInner[4][0], lipsLowerInner[4][1] - 1);
+          // hiddenCtx1.lineTo(lipsLowerInner[3][0], lipsLowerInner[3][1] - 1);
+          // hiddenCtx1.lineTo(lipsLowerInner[2][0], lipsLowerInner[2][1] - 1);
+          // hiddenCtx1.lineTo(lipsLowerInner[1][0], lipsLowerInner[1][1] - 1);
+          // hiddenCtx1.lineTo(lipsLowerInner[0][0], lipsLowerInner[0][1] - 1);
+          // hiddenCtx1.lineTo(lipsUpperOuter[0][0], lipsUpperOuter[0][1] - 1);
+
+          // hiddenCtx1.fill();
+          // hiddenCtx1.stroke();
+
+          // hiddenCtx1.closePath();
+
+          //New Code
+          hiddenCtx1.globalAlpha = 0.7;
           hiddenCtx1.strokeStyle = LipstickShade;
           hiddenCtx1.fillStyle = LipstickShade;
-          hiddenCtx1.filter = "blur(1px)";
-
-          hiddenCtx1.lineWidth = 0;
+          hiddenCtx1.filter = "blur(2px)";
+          hiddenCtx1.lineWidth = 1;
           hiddenCtx1.beginPath();
-          hiddenCtx1.moveTo(lipsUpperOuter[0][0], lipsUpperOuter[0][1]);
-          hiddenCtx1.lineTo(lipsUpperOuter[1][0], lipsUpperOuter[1][1]);
-          hiddenCtx1.lineTo(lipsUpperOuter[2][0], lipsUpperOuter[2][1]);
-          hiddenCtx1.lineTo(lipsUpperOuter[3][0], lipsUpperOuter[3][1]);
-          hiddenCtx1.lineTo(lipsUpperOuter[4][0], lipsUpperOuter[4][1]);
-          hiddenCtx1.lineTo(lipsUpperOuter[5][0], lipsUpperOuter[5][1] + 3);
-          hiddenCtx1.lineTo(lipsUpperOuter[6][0], lipsUpperOuter[6][1]);
-          hiddenCtx1.lineTo(lipsUpperOuter[7][0], lipsUpperOuter[7][1]);
-          hiddenCtx1.lineTo(lipsUpperOuter[8][0], lipsUpperOuter[8][1]);
-          hiddenCtx1.lineTo(lipsUpperOuter[9][0], lipsUpperOuter[9][1]);
-          hiddenCtx1.lineTo(lipsUpperOuter[10][0], lipsUpperOuter[10][1]);
-
-          hiddenCtx1.lineTo(lipsUpperInner[10][0], lipsUpperInner[10][1] + 2);
-          hiddenCtx1.lineTo(lipsUpperInner[9][0], lipsUpperInner[9][1] + 2);
-          hiddenCtx1.lineTo(lipsUpperInner[8][0], lipsUpperInner[8][1] + 2);
-          hiddenCtx1.lineTo(lipsUpperInner[7][0], lipsUpperInner[7][1] + 2);
-          hiddenCtx1.lineTo(lipsUpperInner[6][0], lipsUpperInner[6][1] + 2);
-          hiddenCtx1.lineTo(lipsUpperInner[5][0], lipsUpperInner[5][1] + 2);
-          hiddenCtx1.lineTo(lipsUpperInner[4][0], lipsUpperInner[4][1] + 2);
-          hiddenCtx1.lineTo(lipsUpperInner[3][0], lipsUpperInner[3][1] + 2);
-          hiddenCtx1.lineTo(lipsUpperInner[2][0], lipsUpperInner[2][1] + 2);
-          hiddenCtx1.lineTo(lipsUpperInner[1][0], lipsUpperInner[1][1] + 2);
-          hiddenCtx1.lineTo(lipsUpperInner[0][0], lipsUpperInner[0][1] + 2);
-          hiddenCtx1.lineTo(lipsUpperOuter[0][0], lipsUpperOuter[0][1]);
-
-          hiddenCtx1.fill();
+          hiddenCtx1.lineJoin = hiddenCtx1.lineCap = "round";
+          hiddenCtx1.moveTo(keypoints[61][0], keypoints[61][1] + 1);
+          hiddenCtx1.lineTo(keypoints[185][0], keypoints[185][1] + 4);
+          hiddenCtx1.lineTo(keypoints[40][0], keypoints[40][1] + 4);
+          hiddenCtx1.lineTo(keypoints[39][0], keypoints[39][1] + 3);
+          hiddenCtx1.lineTo(keypoints[37][0], keypoints[37][1]);
+          hiddenCtx1.lineTo(keypoints[0][0], keypoints[0][1] + 1);
+          hiddenCtx1.lineTo(keypoints[267][0], keypoints[267][1]);
+          hiddenCtx1.lineTo(keypoints[269][0], keypoints[269][1]);
+          hiddenCtx1.lineTo(keypoints[270][0], keypoints[270][1]);
+          hiddenCtx1.lineTo(keypoints[409][0], keypoints[409][1] + 1);
+          hiddenCtx1.lineTo(keypoints[291][0], keypoints[291][1] + 1);
+          hiddenCtx1.lineTo(keypoints[308][0], keypoints[308][1]);
+          hiddenCtx1.lineTo(keypoints[415][0], keypoints[415][1] + 3);
+          hiddenCtx1.lineTo(keypoints[310][0], keypoints[310][1] + 3);
+          hiddenCtx1.lineTo(keypoints[311][0], keypoints[311][1] + 3);
+          hiddenCtx1.lineTo(keypoints[312][0], keypoints[312][1] + 3);
+          hiddenCtx1.lineTo(keypoints[13][0], keypoints[13][1] + 3);
+          hiddenCtx1.lineTo(keypoints[82][0], keypoints[82][1] + 3);
+          hiddenCtx1.lineTo(keypoints[81][0], keypoints[81][1] + 3);
+          hiddenCtx1.lineTo(keypoints[80][0], keypoints[80][1] + 3);
+          hiddenCtx1.lineTo(keypoints[191][0], keypoints[191][1] + 3);
+          hiddenCtx1.lineTo(keypoints[78][0], keypoints[78][1] + 3);
+          hiddenCtx1.lineTo(keypoints[76][0], keypoints[76][1] + 3);
           hiddenCtx1.stroke();
+          hiddenCtx1.fill();
 
           hiddenCtx1.closePath();
 
-          hiddenCtx1.globalAlpha = 0.6;
-          hiddenCtx1.strokeStyle = LipstickShade;
-          hiddenCtx1.fillStyle = LipstickShade;
-          hiddenCtx1.filter = "blur(1px)";
-
-          hiddenCtx1.lineWidth = 0;
           hiddenCtx1.beginPath();
-          hiddenCtx1.moveTo(lipsLowerOuter[0][0], lipsLowerOuter[0][1]);
-          hiddenCtx1.lineTo(lipsLowerOuter[1][0], lipsLowerOuter[1][1]);
-          hiddenCtx1.lineTo(lipsLowerOuter[2][0], lipsLowerOuter[2][1]);
-          hiddenCtx1.lineTo(lipsLowerOuter[3][0], lipsLowerOuter[3][1]);
-          hiddenCtx1.lineTo(lipsLowerOuter[4][0], lipsLowerOuter[4][1]);
-          hiddenCtx1.lineTo(lipsLowerOuter[5][0], lipsLowerOuter[5][1]);
-          hiddenCtx1.lineTo(lipsLowerOuter[6][0], lipsLowerOuter[6][1]);
-          hiddenCtx1.lineTo(lipsLowerOuter[7][0], lipsLowerOuter[7][1]);
-          hiddenCtx1.lineTo(lipsLowerOuter[8][0], lipsLowerOuter[8][1]);
-          hiddenCtx1.lineTo(lipsLowerOuter[9][0], lipsLowerOuter[9][1]);
+          hiddenCtx1.lineJoin = hiddenCtx1.lineCap = "round";
+          hiddenCtx1.moveTo(keypoints[61][0], keypoints[61][1]);
+          hiddenCtx1.lineTo(keypoints[146][0], keypoints[146][1]);
+          hiddenCtx1.lineTo(keypoints[91][0], keypoints[91][1]);
+          hiddenCtx1.lineTo(keypoints[181][0], keypoints[181][1]);
+          hiddenCtx1.lineTo(keypoints[84][0], keypoints[84][1]);
+          hiddenCtx1.lineTo(keypoints[17][0], keypoints[17][1]);
+          hiddenCtx1.lineTo(keypoints[314][0], keypoints[314][1] + 1);
+          hiddenCtx1.lineTo(keypoints[405][0], keypoints[405][1] + 1);
+          hiddenCtx1.lineTo(keypoints[321][0], keypoints[321][1] + 1);
+          hiddenCtx1.lineTo(keypoints[375][0], keypoints[375][1] + 1);
+          hiddenCtx1.lineTo(keypoints[291][0], keypoints[291][1] + 1);
+          hiddenCtx1.lineTo(keypoints[308][0], keypoints[308][1] - 1);
+          hiddenCtx1.lineTo(keypoints[324][0], keypoints[324][1] - 1);
+          hiddenCtx1.lineTo(keypoints[318][0], keypoints[318][1] - 1);
+          hiddenCtx1.lineTo(keypoints[402][0], keypoints[402][1] - 1);
+          hiddenCtx1.lineTo(keypoints[317][0], keypoints[317][1] - 1);
+          hiddenCtx1.lineTo(keypoints[14][0], keypoints[14][1] - 1);
+          hiddenCtx1.lineTo(keypoints[87][0], keypoints[87][1] - 2);
+          hiddenCtx1.lineTo(keypoints[178][0], keypoints[178][1] - 2);
+          hiddenCtx1.lineTo(keypoints[88][0], keypoints[88][1] - 2);
+          hiddenCtx1.lineTo(keypoints[95][0], keypoints[95][1] - 2);
+          hiddenCtx1.lineTo(keypoints[78][0], keypoints[78][1]);
+          hiddenCtx1.lineTo(keypoints[76][0], keypoints[76][1]);
+          hiddenCtx1.lineTo(keypoints[61][0], keypoints[61][1]);
 
-          hiddenCtx1.lineTo(lipsLowerInner[10][0], lipsLowerInner[10][1] - 1);
-          hiddenCtx1.lineTo(lipsLowerInner[9][0], lipsLowerInner[9][1] - 1);
-          hiddenCtx1.lineTo(lipsLowerInner[8][0], lipsLowerInner[8][1] - 1);
-          hiddenCtx1.lineTo(lipsLowerInner[7][0], lipsLowerInner[7][1] - 1);
-          hiddenCtx1.lineTo(lipsLowerInner[6][0], lipsLowerInner[6][1] - 1);
-          hiddenCtx1.lineTo(lipsLowerInner[5][0], lipsLowerInner[5][1] - 1);
-          hiddenCtx1.lineTo(lipsLowerInner[4][0], lipsLowerInner[4][1] - 1);
-          hiddenCtx1.lineTo(lipsLowerInner[3][0], lipsLowerInner[3][1] - 1);
-          hiddenCtx1.lineTo(lipsLowerInner[2][0], lipsLowerInner[2][1] - 1);
-          hiddenCtx1.lineTo(lipsLowerInner[1][0], lipsLowerInner[1][1] - 1);
-          hiddenCtx1.lineTo(lipsLowerInner[0][0], lipsLowerInner[0][1] - 1);
-          hiddenCtx1.lineTo(lipsUpperOuter[0][0], lipsUpperOuter[0][1] - 1);
-
-          hiddenCtx1.fill();
           hiddenCtx1.stroke();
+          hiddenCtx1.fill();
 
           hiddenCtx1.closePath();
         }
@@ -509,23 +577,45 @@ async function longCalculation(image) {
 
           hiddenCtx1.lineWidth = 1;
           hiddenCtx1.beginPath();
-          hiddenCtx1.moveTo(keypoints[133][0], keypoints[133][1]);
+          // hiddenCtx1.moveTo(keypoints[133][0], keypoints[133][1]);
+          // hiddenCtx1.lineTo(keypoints[243][0], keypoints[243][1]);
+          // hiddenCtx1.lineTo(keypoints[56][0], keypoints[56][1] + 4);
+          // hiddenCtx1.lineTo(keypoints[28][0], keypoints[28][1] + 4);
+          // hiddenCtx1.lineTo(keypoints[27][0], keypoints[27][1] + 4);
+          // hiddenCtx1.lineTo(keypoints[29][0], keypoints[29][1] + 4);
+          // hiddenCtx1.lineTo(keypoints[30][0], keypoints[30][1] + 4);
+          // hiddenCtx1.lineTo(keypoints[247][0], keypoints[247][1] + 4);
+          // hiddenCtx1.lineTo(keypoints[7][0], keypoints[7][1]);
+          // hiddenCtx1.lineTo(keypoints[33][0], keypoints[33][1]);
+          // hiddenCtx1.lineTo(keypoints[246][0], keypoints[246][1]);
+          // hiddenCtx1.lineTo(keypoints[161][0], keypoints[161][1]);
+          // hiddenCtx1.lineTo(keypoints[160][0], keypoints[160][1]);
+          // hiddenCtx1.lineTo(keypoints[159][0], keypoints[159][1]);
+          // hiddenCtx1.lineTo(keypoints[158][0], keypoints[158][1]);
+          // hiddenCtx1.lineTo(keypoints[157][0], keypoints[157][1]);
+          // hiddenCtx1.lineTo(keypoints[173][0], keypoints[173][1]);
           hiddenCtx1.lineTo(keypoints[243][0], keypoints[243][1]);
           hiddenCtx1.lineTo(keypoints[56][0], keypoints[56][1] + 4);
           hiddenCtx1.lineTo(keypoints[28][0], keypoints[28][1] + 4);
           hiddenCtx1.lineTo(keypoints[27][0], keypoints[27][1] + 4);
           hiddenCtx1.lineTo(keypoints[29][0], keypoints[29][1] + 4);
-          hiddenCtx1.lineTo(keypoints[30][0], keypoints[30][1] + 4);
-          hiddenCtx1.lineTo(keypoints[247][0], keypoints[247][1] + 4);
+          hiddenCtx1.lineTo(keypoints[30][0], keypoints[30][1] + 2);
+          hiddenCtx1.lineTo(keypoints[113][0], keypoints[113][1] + 2);
+          hiddenCtx1.lineTo(keypoints[130][0], keypoints[130][1]);
+          hiddenCtx1.lineTo(keypoints[110][0], keypoints[110][1] - 7);
+          hiddenCtx1.lineTo(keypoints[24][0], keypoints[24][1] - 6);
+          hiddenCtx1.lineTo(keypoints[145][0], keypoints[145][1]);
+          hiddenCtx1.lineTo(keypoints[144][0], keypoints[144][1]);
+          hiddenCtx1.lineTo(keypoints[163][0], keypoints[163][1]);
           hiddenCtx1.lineTo(keypoints[7][0], keypoints[7][1]);
-          hiddenCtx1.lineTo(keypoints[33][0], keypoints[33][1]);
-          hiddenCtx1.lineTo(keypoints[246][0], keypoints[246][1]);
-          hiddenCtx1.lineTo(keypoints[161][0], keypoints[161][1]);
-          hiddenCtx1.lineTo(keypoints[160][0], keypoints[160][1]);
-          hiddenCtx1.lineTo(keypoints[159][0], keypoints[159][1]);
-          hiddenCtx1.lineTo(keypoints[158][0], keypoints[158][1]);
-          hiddenCtx1.lineTo(keypoints[157][0], keypoints[157][1]);
-          hiddenCtx1.lineTo(keypoints[173][0], keypoints[173][1]);
+          hiddenCtx1.lineTo(keypoints[33][0], keypoints[33][1] - 2);
+          hiddenCtx1.lineTo(keypoints[246][0], keypoints[246][1] - 1);
+          hiddenCtx1.lineTo(keypoints[161][0], keypoints[161][1] - 1);
+          hiddenCtx1.lineTo(keypoints[160][0], keypoints[160][1] - 1);
+          hiddenCtx1.lineTo(keypoints[159][0], keypoints[159][1] - 1);
+          hiddenCtx1.lineTo(keypoints[158][0], keypoints[158][1] - 1);
+          hiddenCtx1.lineTo(keypoints[157][0], keypoints[157][1] - 1);
+          hiddenCtx1.lineTo(keypoints[173][0], keypoints[173][1] - 1);
           hiddenCtx1.fill();
           hiddenCtx1.stroke();
 
@@ -538,23 +628,46 @@ async function longCalculation(image) {
 
           hiddenCtx1.lineWidth = -1;
           hiddenCtx1.beginPath();
-          hiddenCtx1.moveTo(keypoints[362][0], keypoints[362][1]);
-          hiddenCtx1.lineTo(keypoints[463][0], keypoints[463][1]);
-          hiddenCtx1.lineTo(keypoints[414][0], keypoints[414][1] + 4);
-          hiddenCtx1.lineTo(keypoints[286][0], keypoints[286][1] + 4);
-          hiddenCtx1.lineTo(keypoints[258][0], keypoints[258][1] + 4);
+          // hiddenCtx1.moveTo(keypoints[362][0], keypoints[362][1]);
+          // hiddenCtx1.lineTo(keypoints[463][0], keypoints[463][1]);
+          // hiddenCtx1.lineTo(keypoints[414][0], keypoints[414][1] + 4);
+          // hiddenCtx1.lineTo(keypoints[286][0], keypoints[286][1] + 4);
+          // hiddenCtx1.lineTo(keypoints[258][0], keypoints[258][1] + 4);
+          // hiddenCtx1.lineTo(keypoints[257][0], keypoints[257][1] + 4);
+          // hiddenCtx1.lineTo(keypoints[259][0], keypoints[259][1] + 4);
+          // hiddenCtx1.lineTo(keypoints[260][0], keypoints[260][1] + 4);
+          // hiddenCtx1.lineTo(keypoints[467][0], keypoints[467][1] + 4);
+          // hiddenCtx1.lineTo(keypoints[263][0], keypoints[263][1]);
+          // hiddenCtx1.lineTo(keypoints[466][0], keypoints[466][1]);
+          // hiddenCtx1.lineTo(keypoints[388][0], keypoints[388][1]);
+          // hiddenCtx1.lineTo(keypoints[387][0], keypoints[387][1]);
+          // hiddenCtx1.lineTo(keypoints[386][0], keypoints[386][1]);
+          // hiddenCtx1.lineTo(keypoints[385][0], keypoints[385][1]);
+          // hiddenCtx1.lineTo(keypoints[384][0], keypoints[384][1]);
+          // hiddenCtx1.lineTo(keypoints[398][0], keypoints[398][1]);
+          hiddenCtx1.moveTo(keypoints[463][0], keypoints[463][1]);
+          hiddenCtx1.lineTo(keypoints[286][0], keypoints[286][1] + 6);
+          hiddenCtx1.lineTo(keypoints[258][0], keypoints[258][1] + 5);
           hiddenCtx1.lineTo(keypoints[257][0], keypoints[257][1] + 4);
           hiddenCtx1.lineTo(keypoints[259][0], keypoints[259][1] + 4);
-          hiddenCtx1.lineTo(keypoints[260][0], keypoints[260][1] + 4);
-          hiddenCtx1.lineTo(keypoints[467][0], keypoints[467][1] + 4);
-          hiddenCtx1.lineTo(keypoints[263][0], keypoints[263][1]);
-          hiddenCtx1.lineTo(keypoints[466][0], keypoints[466][1]);
-          hiddenCtx1.lineTo(keypoints[388][0], keypoints[388][1]);
-          hiddenCtx1.lineTo(keypoints[387][0], keypoints[387][1]);
-          hiddenCtx1.lineTo(keypoints[386][0], keypoints[386][1]);
-          hiddenCtx1.lineTo(keypoints[385][0], keypoints[385][1]);
-          hiddenCtx1.lineTo(keypoints[384][0], keypoints[384][1]);
-          hiddenCtx1.lineTo(keypoints[398][0], keypoints[398][1]);
+          hiddenCtx1.lineTo(keypoints[260][0], keypoints[260][1] + 2);
+          hiddenCtx1.lineTo(keypoints[342][0], keypoints[342][1] + 1);
+          hiddenCtx1.lineTo(keypoints[359][0], keypoints[359][1]);
+          hiddenCtx1.lineTo(keypoints[339][0], keypoints[339][1] - 4);
+          hiddenCtx1.lineTo(keypoints[254][0], keypoints[254][1] - 4);
+          hiddenCtx1.lineTo(keypoints[374][0], keypoints[374][1] + 1);
+          hiddenCtx1.lineTo(keypoints[373][0], keypoints[373][1] + 1);
+          hiddenCtx1.lineTo(keypoints[390][0], keypoints[390][1] + 1);
+          hiddenCtx1.lineTo(keypoints[249][0], keypoints[249][1] + 1);
+
+          hiddenCtx1.lineTo(keypoints[263][0] + 5, keypoints[263][1] - 5);
+          hiddenCtx1.lineTo(keypoints[466][0] + 2, keypoints[466][1] + 2);
+          hiddenCtx1.lineTo(keypoints[388][0], keypoints[388][1] + 1);
+          hiddenCtx1.lineTo(keypoints[387][0], keypoints[387][1] + 1);
+          hiddenCtx1.lineTo(keypoints[386][0], keypoints[386][1] + 1);
+          hiddenCtx1.lineTo(keypoints[385][0], keypoints[385][1] + 1);
+          hiddenCtx1.lineTo(keypoints[384][0], keypoints[384][1] + 1);
+          hiddenCtx1.lineTo(keypoints[398][0], keypoints[398][1] + 1);
 
           hiddenCtx1.fill();
           hiddenCtx1.stroke();
@@ -569,6 +682,16 @@ async function longCalculation(image) {
 
           hiddenCtx1.lineWidth = -1;
           hiddenCtx1.beginPath();
+          // hiddenCtx1.moveTo(keypoints[55][0], keypoints[55][1]);
+          // hiddenCtx1.lineTo(keypoints[65][0], keypoints[65][1]);
+          // hiddenCtx1.lineTo(keypoints[52][0], keypoints[53][1]);
+          // hiddenCtx1.lineTo(keypoints[46][0], keypoints[46][1]);
+          // hiddenCtx1.lineTo(keypoints[139][0], keypoints[139][1]);
+          // hiddenCtx1.lineTo(keypoints[63][0], keypoints[63][1] + 5);
+          // hiddenCtx1.lineTo(keypoints[105][0], keypoints[105][1] + 4);
+          // hiddenCtx1.lineTo(keypoints[66][0], keypoints[66][1] + 3);
+          // hiddenCtx1.lineTo(keypoints[107][0], keypoints[107][1] + 7);
+          // hiddenCtx1.lineTo(keypoints[55][0], keypoints[55][1]);
           hiddenCtx1.moveTo(keypoints[55][0], keypoints[55][1]);
           hiddenCtx1.lineTo(keypoints[65][0], keypoints[65][1]);
           hiddenCtx1.lineTo(keypoints[52][0], keypoints[53][1]);
@@ -739,6 +862,7 @@ async function main() {
         video: { facingMode: "user" },
       });
       video.srcObject = stream;
+      video.style.transform = "scaleX(-1)";
 
       video.onloadedmetadata = () => {
         video.play().catch((e) => console.error("Error playing video: ", e));

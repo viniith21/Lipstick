@@ -13,16 +13,18 @@
         text-align: center;
         font-family: Arial, sans-serif;
         color: #ab7373;
-        background-image: url("asset/image31.jpeg");
+        /* background-image: url("asset/pink.png"); */
+        background-color: #fdf9f7;
         background-repeat: no-repeat;
         background-size: cover;
       }
 
       .container {
+        top: 12px;
         width: 450px;
-        /* background-color: #786c8b; */
-        background-color: #847995;
-        /* border: 6px solid #ccc; */
+        background-color: white; /* Content box background color */
+        border: 1px solid #ccc; /* Border for the content box */
+        border-radius: 0 0 5px 5px; /* Rounded corners at the bottom */
         position: relative;
         margin: 0 auto;
         display: flex;
@@ -52,6 +54,8 @@
       }
 
       .tab {
+        border-bottom: none;
+        margin-bottom: -1px;
         padding: 10px 20px;
         background-color: #f5f5f5;
         color: #555;
@@ -59,20 +63,27 @@
         border-bottom: none;
         border-radius: 0;
         cursor: pointer;
-        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s,
+          box-shadow 0.3s, transform 0.3s; /* Add transform to the transition */
+        transform: translateY(2px); /* Push the non-active tabs down a bit */
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); /* Add some shadow for depth */
         font-size: 16px;
         flex: 1 1 auto;
         min-width: 100px;
         box-sizing: border-box;
         padding: 10px;
+        z-index: 1;
         text-align: center;
       }
 
       .tab.active {
-        background-color: rgb(115, 114, 114);
-        border-color: #ccc;
+        background-color: #847995;
         color: white;
+        border-color: #847995;
+        border-bottom: none;
         font-size: 16px;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.4);
       }
 
       .selection {
@@ -100,12 +111,22 @@
         content: "";
       }
 
+      /* .tabs-container {
+            background-color: #cdebfd;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            margin: 0 auto;
+          } */
       .tabs-container {
-        background-color: #cdebfd;
-        overflow: hidden;
+        background-color: #f8e8e8;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        width: 50%;
+        border-radius: 5px 5px 0 0;
+        display: inline-block;
+        /* padding: 0 60px; */
+        width: 45%;
         margin: 0 auto;
+        text-align: left;
       }
 
       .tabs-container .tab:last-child {
@@ -119,6 +140,30 @@
         right: 5px;
         color: white;
         font-size: 20px;
+      }
+      #footer {
+        background-color: #f8e8e8;
+        width: 100%;
+
+        position: relative;
+        margin-top: -1px;
+        box-sizing: border-box;
+      }
+      #top {
+        text-align: center;
+        background-color: #fdf9f7;
+        padding: 20px 0;
+      }
+
+      .heading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f8e8e8;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 0;
+        height: 60px;
       }
 
       @media screen and (max-width: 720px) {
@@ -162,21 +207,37 @@
       }
     </style>
   </head>
-  <body onload="openIframe()">
-    <h1 id="title">Virtual Try-On</h1>
 
-    <div class="container">
-      <iframe
-        id="projectBIframe"
-        width="600"
-        height="400"
-        scrolling="off"
-      ></iframe>
+  <body onload="openIframe()">
+    <div id="top">
+      <h1
+        id="title"
+        style="
+          background-color: #f8e8e8;
+          display: inline-block;
+          padding: 10px 20px;
+          border-radius: 5px;
+        "
+      >
+        Virtual Try-On
+      </h1>
+
+      <div class="container">
+        <iframe
+          id="projectBIframe"
+          width="600"
+          height="400"
+          scrolling="off"
+        ></iframe>
+      </div>
     </div>
     <br />
-    <div class="tabs-container">
-      <div class="tabs" id="cosmeticTabs"></div>
-      <div class="tabs" id="shadeTabs" style="display: none"></div>
+
+    <div id="footer">
+      <div class="tabs-container">
+        <div class="tabs" id="cosmeticTabs"></div>
+        <div class="tabs" id="shadeTabs" style="display: none"></div>
+      </div>
     </div>
 
     <script>

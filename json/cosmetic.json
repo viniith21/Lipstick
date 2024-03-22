@@ -106,8 +106,8 @@
         "type_display": "Eyebrows",
         "shades": [
           {
-            "name": "Blue",
-            "color": "#000044"
+            "name": "Graphite",
+            "color": "#41424C"
           },{
             "name": "black",
             "color": "#000000"
@@ -117,12 +117,12 @@
             "color": "#1B0000"
           },
           {
-            "name": "Red",
-            "color": "#FF0000"
+            "name": "Gray Brown",
+            "color": "#3D3635"
           },
           {
-            "name": "WoodyFlush",
-            "color": "#76777b"
+            "name": "Dark Brown",
+            "color": "#5C4033"
           }
         ]
       }
