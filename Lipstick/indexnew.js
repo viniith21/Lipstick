@@ -862,7 +862,7 @@ async function main() {
         video: { facingMode: "user" },
       });
       video.srcObject = stream;
-      video.style.transform = "scaleX(-1)";
+      // video.style.transform = "scaleX(-1)";
 
       video.onloadedmetadata = () => {
         video.play().catch((e) => console.error("Error playing video: ", e));
@@ -874,6 +874,8 @@ async function main() {
     }
 
     ctx = canvas.getContext("2d");
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+
     ctx.translate(canvas.width, 0);
     ctx.scale(-1, 1);
 
